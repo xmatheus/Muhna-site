@@ -21,8 +21,31 @@ class Main extends React.Component {
 	    this.setState({ password: event.target.value });
 	};
 
+	addEfeitoDeErro = () => {
+	    const formLogin = document.querySelector('.login');
+	    formLogin.classList.add('validade-error');
+	    // document.querySelector('.login').style.border = '1px solid red';
+	    const formError = document.querySelector('.validade-error');
+	    if (formError) {
+	        formError.addEventListener('animationend', event => {
+	            if (event.animationName === 'nono') {
+	                this.setState({ error: 'email ou senha inválidos' });
+	                formError.classList.remove('validade-error');
+	            }
+	        });
+	    }
+	};
+	componentDidMount = () => {
+	    document.querySelector('.login').addEventListener('keypress', event => {
+	        if (event.keyCode === 13) {
+	            event.preventDefault();
+	            document.querySelector('button').click();
+	        }
+	    });
+	};
+
 	enviar = async () => {
-	    this.passwordInput.type = 'text';
+	    document.querySelector('.main-form').style.cursor = 'wait';
 	    const { email, password } = this.state;
 
 	    api.post('/auth/authenticate', {
@@ -31,11 +54,12 @@ class Main extends React.Component {
 	    })
 	        .then(async response => {
 	            const { token } = response.data;
-
 	            login(token);
 	            this.props.history.push('/dashboard');
 	        })
 	        .catch(error => {
+	            document.querySelector('.main-form').style.cursor = 'default';
+	            this.addEfeitoDeErro();
 	            console.log(error);
 	        });
 	};
@@ -45,6 +69,7 @@ class Main extends React.Component {
 	        <div className="main-form">
 	            <div className="login">
 	                <h1>Login</h1>
+	                {this.state.error ? <p>{this.state.error}</p> : null}
 	                <form id="formOne" onSubmit={() => {}}>
 	                    <label>email</label>
 	                    <input
@@ -66,7 +91,9 @@ class Main extends React.Component {
 	                        onChange={this.handleChangePasswd}
 	                    />
 	                </form>
-	                <button onClick={this.enviar}>Enviar</button>
+	                <button type="submit" onClick={this.enviar}>
+						Enviar
+	                </button>
 	            </div>
 	        </div>
 	    );

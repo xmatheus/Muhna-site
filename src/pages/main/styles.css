@@ -1,8 +1,20 @@
 * {
 	margin: 0;
+	outline: 0;
+	padding: 0;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+
+body,
+html {
+	background: #eee;
+	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	height: 100%;
+	width: 100%;
 }
 .main-form::before {
 	content: "";
@@ -25,7 +37,7 @@
 }
 .main-form {
 	display: flex;
-	background-color: rgba(92, 90, 86, 0.13);
+	background-color: rgba(92, 90, 86, 0.1);
 	align-items: center;
 	justify-content: center;
 }
@@ -37,9 +49,9 @@
 	padding: 20px;
 	border: 2px solid #fafafa;
 	border-radius: 10px;
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.5);
 	width: 20%;
-	min-width: 200px;
+	min-width: 350px;
 }
 
 .login h1 {
@@ -60,7 +72,6 @@
 	padding-bottom: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	flex-direction: column;
-	height: auto;
 	width: 100%;
 	color: #fafafa;
 }
@@ -75,6 +86,7 @@
 	font-size: 15px;
 	border-radius: 5px;
 	height: 3.7vh;
+	min-height: 3.5vh;
 	width: 100%;
 
 	-webkit-transition: font-size 0.4s ease-in-out;
@@ -91,7 +103,6 @@
 	font-family: Arial, Helvetica, sans-serif;
 	display: flex;
 	flex-direction: column;
-	height: auto;
 	width: 100%;
 	color: #fafafa;
 }
@@ -108,6 +119,7 @@
 	background: #4d2600;
 	font-weight: bold;
 	font-size: 13px;
+	overflow: hidden;
 }
 
 .login button:hover {
@@ -121,6 +133,19 @@
 	animation-duration: 500ms;
 }
 
+.login p {
+	animation: fade 250ms;
+	text-align: center;
+	animation-fill-mode: backwards;
+	font-family: "Lucida Console", Monaco, monospace;
+	color: #fafafa;
+	font-size: 20px;
+	padding: 5px;
+	background: #ff1a1a;
+	border-radius: 6px;
+	margin: 15px 0px;
+}
+
 @keyframes fade {
 	from {
 		opacity: 0;
@@ -129,5 +154,38 @@
 	to {
 		opacity: 1;
 		transform: scale(1);
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		transform: translatey(0);
+	}
+	35% {
+		transform: translatey(40%);
+	}
+	100% {
+		transform: translatey(100%);
+	}
+}
+
+/* erro no login */
+.login.validade-error {
+	animation: nono 250ms linear, fade paused;
+	animation-iteration-count: 2;
+}
+
+@keyframes nono {
+	0% {
+		transform: translateX(0);
+	}
+	35% {
+		transform: translateX(-10%);
+	}
+	70% {
+		transform: translateX(10%);
+	}
+	100% {
+		transform: translateX(0);
 	}
 }

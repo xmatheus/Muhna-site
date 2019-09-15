@@ -4,7 +4,6 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { isAuthenticated } from '../services/auth';
 
-import { withRouter } from 'react-router-dom';
 const AuthDashBoard = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
