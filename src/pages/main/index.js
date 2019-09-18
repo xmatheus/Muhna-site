@@ -5,7 +5,7 @@ import api from '../services/api';
 
 import { withRouter } from 'react-router-dom';
 
-import { login } from '../services/auth';
+import { login, saveData } from '../services/auth';
 
 /* barra de progresso */
 
@@ -66,10 +66,9 @@ class Main extends React.Component {
 	        password: password
 	    })
 	        .then(async response => {
-	            const { token } = response.data;
+	            const { token, user } = response.data;
 	            login(token);
-	            // this.setState({ conta: 100 });
-	            // clearInterval(this.state.contador);
+	            saveData(user);
 	            this.setState({ enviar: null });
 	            this.props.history.push('/dashboard');
 	        })
@@ -113,7 +112,6 @@ class Main extends React.Component {
 						Enviar
 	                </button>
 	                <LineScale color={'#fff'} loading={this.state.enviar} />
-	                {/* {this.state.enviar ? <LinearIndeterminate /> : null} */}
 	            </div>
 	        </div>
 	    );
