@@ -7,10 +7,16 @@ import { withRouter } from 'react-router-dom';
 
 import { login } from '../services/auth';
 
+/* barra de progresso */
+
+// import LinearIndeterminate from './bar';
+
+import { LineScale } from 'react-pure-loaders';
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '', logado: false };
+        this.state = { email: '', password: '', logado: false, conta: 0 };
     }
 
 	handleChangeEmail = event => {
@@ -43,8 +49,15 @@ class Main extends React.Component {
 	        }
 	    });
 	};
+	// conta = async () => {
+	//     setInterval(() => {
+	//         this.setState({ conta: this.state.conta + 1 });
+	//     }, 50);
+	// };
 
 	enviar = async () => {
+	    this.setState({ enviar: 1 });
+	    // this.conta();
 	    document.querySelector('.main-form').style.cursor = 'wait';
 	    const { email, password } = this.state;
 
@@ -55,9 +68,13 @@ class Main extends React.Component {
 	        .then(async response => {
 	            const { token } = response.data;
 	            login(token);
+	            // this.setState({ conta: 100 });
+	            // clearInterval(this.state.contador);
+	            this.setState({ enviar: null });
 	            this.props.history.push('/dashboard');
 	        })
 	        .catch(error => {
+	            this.setState({ enviar: null });
 	            document.querySelector('.main-form').style.cursor = 'default';
 	            this.addEfeitoDeErro();
 	            console.log(error);
@@ -69,6 +86,7 @@ class Main extends React.Component {
 	        <div className="main-form">
 	            <div className="login">
 	                <h1>Login</h1>
+
 	                {this.state.error ? <p>{this.state.error}</p> : null}
 	                <form id="formOne" onSubmit={() => {}}>
 	                    <label>email</label>
@@ -94,6 +112,8 @@ class Main extends React.Component {
 	                <button type="submit" onClick={this.enviar}>
 						Enviar
 	                </button>
+	                <LineScale color={'#fff'} loading={this.state.enviar} />
+	                {/* {this.state.enviar ? <LinearIndeterminate /> : null} */}
 	            </div>
 	        </div>
 	    );
