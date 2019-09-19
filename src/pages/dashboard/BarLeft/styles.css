@@ -36,7 +36,11 @@
 }
 
 .menu-items {
-	margin-top: 75px;
+	flex-direction: column;
+	margin-top: 85px;
+	margin-left: 45px;
+	margin-right: 25px;
+	align-items: flex-start;
 }
 
 .menu-items hr {
@@ -63,6 +67,13 @@
 	color: black;
 	background-color: #fafafa;
 	border: 1px solid white;
+}
+
+.barleft-one-div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 @keyframes cai {
