@@ -1,0 +1,15 @@
+.main-News-loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: #fafafa;
+	width: 100%;
+}
+
+.main-News {
+	display: flex;
+	flex-direction: column;
+	background-color: #fafafa;
+	width: 100%;
+}

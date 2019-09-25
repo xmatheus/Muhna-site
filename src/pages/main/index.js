@@ -49,11 +49,6 @@ class Main extends React.Component {
 	        }
 	    });
 	};
-	// conta = async () => {
-	//     setInterval(() => {
-	//         this.setState({ conta: this.state.conta + 1 });
-	//     }, 50);
-	// };
 
 	enviar = async () => {
 	    this.setState({ enviar: 1 });
