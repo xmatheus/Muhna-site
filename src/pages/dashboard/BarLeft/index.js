@@ -28,7 +28,7 @@ export default class BarLeft extends Component {
 	    return (
 	        <div className="barleft-main-div">
 	            {this.state.data ? (
-	                <div>
+	                <>
 	                    <div className="barleft-one-div">
 	                        <img alt="logo MuHNA" id="img-div" src={logo}></img>
 	                        <p id="p-hello-visit">
@@ -68,7 +68,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<News history={this.props.history}/>);
 	                                        }}
 	                                    >
 	                                        <FaNewspaper
@@ -251,7 +251,7 @@ export default class BarLeft extends Component {
 	                        </div>
 	                        ) : null}
 	                    </div>
-	                </div>
+	                </>
 	            ) : null}
 	        </div>
 	    );

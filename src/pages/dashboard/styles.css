@@ -1,5 +1,6 @@
 .main-div {
 	display: flex;
 	flex-direction: row;
-	background-color: #ffffff;
+	background-color: #ffffffd3;
+	overflow: hidden;
 }

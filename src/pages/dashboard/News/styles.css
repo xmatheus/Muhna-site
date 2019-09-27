@@ -3,13 +3,144 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background-color: #fafafa;
-	width: 100%;
+	width: 80%;
+	height: 100vh;
 }
 
 .main-News {
 	display: flex;
 	flex-direction: column;
-	background-color: #fafafa;
+	align-items: center;
 	width: 100%;
+	height: 100vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-top: 80px;
+	position: sticky;
+	overflow: hidden;
+	animation: fade 250ms linear;
+}
+
+.sub-div-news {
+	display: flex;
+	flex-direction: column;
+	border: 2px solid rgba(3, 3, 3, 0.733);
+	border-radius: 10px;
+	width: 60%;
+	height: 80%;
+	padding: 20px;
+	overflow: hidden;
+	overflow-y: auto;
+	position: sticky;
+	background-color: #ffffff;
+}
+
+.sub-div-news label {
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#editor {
+	height: 100px;
+	padding-bottom: 25px;
+}
+
+.sub-div-news input {
+	margin-top: 5px;
+	margin-bottom: 20px;
+	width: 100%;
+	height: 35px;
+	border-radius: 4px;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	color: #000000c2;
+	font-size: 16px;
+	display: inline-block;
+	border: 1px solid rgb(44, 25, 2);
+}
+
+.sub-div-news input:focus {
+	background-color: none;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+input:-webkit-autofill {
+	-webkit-text-fill-color: #000000de !important;
+}
+
+/* squares */
+html,
+body {
+	height: 100vh;
+}
+
+body {
+	overflow: hidden;
+}
+.squares li {
+	width: 40px;
+	height: 40px;
+	/* background-color: rgba(54, 29, 1, 0.8); */
+	background-color: none;
+	border: 1px solid rgba(0, 0, 0, 0.9);
+	display: block;
+	position: absolute;
+	bottom: 40px;
+	animation: up 2s infinite alternate;
+	z-index: -1;
+}
+
+.button-div {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding-top: 35px;
+	height: 100%;
+}
+
+.button-div button {
+	border: 0px;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: rgb(6, 182, 29);
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.button-div button:hover {
+	background-color: rgb(9, 83, 19);
+	cursor: pointer;
+}
+@keyframes up {
+	from {
+		opacity: 0;
+		transform: translateY(0);
+	}
+	50% {
+		opacity: 1;
+	}
+	to {
+		transform: translateY(-900px) rotate(960deg);
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
 }

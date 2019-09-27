@@ -6,9 +6,11 @@ import BarLeft from './BarLeft';
 
 import './styles.css';
 
+import AboutPage from './AboutPage';
+
 class Dashboard extends Component {
 	state = {
-	    component: null
+	    component: <AboutPage></AboutPage>
 	};
 	setComponent = async exibir => {
 	    this.setState({ component: exibir });
@@ -16,7 +18,10 @@ class Dashboard extends Component {
 	render() {
 	    return (
 	        <div className="main-div">
-	            <BarLeft component={this.setComponent}></BarLeft>
+	            <BarLeft
+	                component={this.setComponent}
+	                history={this.props.history}
+	            ></BarLeft>
 	            {this.state.component}
 	        </div>
 	    );
