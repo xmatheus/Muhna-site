@@ -15,7 +15,8 @@ import swal from '@sweetalert/with-react';
 
 export default class News extends Component {
 	state = {
-	    onScreen: false
+	    onScreen: false,
+	    enviar: 0
 	};
 
 	componentDidMount = () => {
@@ -62,8 +63,7 @@ export default class News extends Component {
 	};
 
 	handleChangeNews = news => {
-	    this.setState({ news: news });
-	    console.log(news);
+	    this.setState({ news });
 	};
 
 	sessaoExpirada = () => {
@@ -110,23 +110,45 @@ export default class News extends Component {
 	    });
 	};
 
-	enviar = async () => {
+	noticiaEnviada = () => {
+	    swal({
+	        content: (
+	            <div>
+	                <h1>:) deu certo</h1>
+	                <br />
+	                <br />
+	                <p>a notícia foi enviada</p>
+	            </div>
+	        ),
+	        buttons: {
+	            catch: {
+	                text: 'certo'
+	            }
+	        }
+	    });
+	};
+
+	enviar = () => {
 	    this.setState({ enviar: 1 });
-	    // this.conta();
+
 	    const { title, resume, news } = this.state;
 	    api.post('/news/create', {
 	        title,
 	        resume,
 	        news
 	    })
-	        .then(async response => {
+	        .then(response => {
 	            const { _id, status } = response.data;
 
 	            if (status === 401) {
 	                this.sessaoExpirada();
 	            }
+	            console.log('-> noticia enviada');
+	            this.setState({ enviar: 0 });
+	            this.noticiaEnviada();
 	        })
 	        .catch(error => {
+	            this.setState({ enviar: 0 });
 	            this.deuErro();
 	        });
 	};
@@ -159,20 +181,23 @@ export default class News extends Component {
 				                    onChange={this.handleChangeResume}
 				                />
 				            </form>
-				            <EditorText
-				                id="editor"
-				                onChange={(event, editor) => {
-				                    const data = editor.getData();
-				                    this.handleChangeNews(data);
-				                }}
-				            ></EditorText>
+				            <div className="editor-text">
+				                <EditorText
+				                    onChange={this.handleChangeNews}
+				                ></EditorText>
+				            </div>
 				            <div className="button-div">
+				                <div id="pacmanLoad">
+				                    {this.state.enviar ? (
+				                        <Pacman color={'#000'} loading={true} />
+				                    ) : null}
+				                </div>
+
 				                <button
 				                    onClick={() => {
 				                        this.enviar();
 				                    }}
 				                >
-				                    {' '}
 									próximo
 				                </button>
 				            </div>

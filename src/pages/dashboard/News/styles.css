@@ -19,6 +19,7 @@
 	position: sticky;
 	overflow: hidden;
 	animation: fade 250ms linear;
+	min-height: 300px;
 }
 
 .sub-div-news {
@@ -39,11 +40,6 @@
 	color: black;
 	font-size: 18px;
 	font-weight: bold;
-}
-
-#editor {
-	height: 100px;
-	padding-bottom: 25px;
 }
 
 .sub-div-news input {
@@ -99,22 +95,40 @@ body {
 
 .button-div {
 	display: flex;
-	align-items: flex-end;
-	justify-content: flex-end;
-	padding-top: 35px;
-	height: 100%;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: 60px;
+	height: 30%;
+}
+#pacmanLoad {
+	display: flex;
+	height: 110%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	animation: fade 200ms linear;
+}
+.editor-text {
+	border: 2px solid #afafaf;
+	height: 50%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	min-height: 100px;
 }
 
 .button-div button {
 	border: 0px;
 	border-radius: 5px;
 	padding: 10px;
-	background-color: rgb(6, 182, 29);
+	background-color: #06b61d;
 	color: #fff;
 	text-align: center;
 	text-decoration: none;
 	font-weight: bold;
 	font-size: 14px;
+	margin-top: 20px;
 }
 
 .button-div button:hover {

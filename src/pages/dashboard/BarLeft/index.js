@@ -81,7 +81,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaNewspaper
@@ -93,7 +93,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaNewspaper
@@ -138,7 +138,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -151,7 +151,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -163,7 +163,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -176,7 +176,7 @@ export default class BarLeft extends Component {
 										<div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -222,7 +222,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaUsers
@@ -235,7 +235,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News />);
+	                                            this.props.component(<h1>Em desenvolvimento</h1>);
 	                                        }}
 	                                    >
 	                                        <FaUsers

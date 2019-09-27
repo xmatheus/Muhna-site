@@ -1,32 +1,50 @@
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 import React, { Component } from 'react';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
-// import { Container } from './styles';
-
-import CKEditor from '@ckeditor/ckeditor5-react';
-
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import './styles.css';
 export default class EditorText extends Component {
-	componentDidMount = () => {
-	    ClassicEditor.create(document.querySelector('#editor'), {
-	        removePlugins: ['ImageUpload', 'Table']
-	    }).catch(error => {
-	        console.log(error);
+    constructor(props) {
+        super(props);
+        const html =
+			'<p>Escreva o texto da <strong>notícia</strong> aqui 😀</p>';
+        const contentBlock = htmlToDraft(html);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(
+                contentBlock.contentBlocks
+            );
+            const editorState = EditorState.createWithContent(contentState);
+            this.state = {
+                editorState
+            };
+        }
+    }
+
+	onEditorStateChange: Function = editorState => {
+	    this.setState({
+	        editorState
 	    });
+	    this.props.onChange(
+	        draftToHtml(convertToRaw(editorState.getCurrentContent()))
+	    );
 	};
 
 	render() {
+	    const { editorState } = this.state;
 	    return (
-	        <CKEditor
-	            id="editor"
-	            editor={ClassicEditor}
-	            data="<p>Digite o texto da notícia</p><p/><p/><p/><p/><p/><p/>"
-	            onInit={editor => {
-	                // You can store the "editor" and use when it is needed.
-	                // console.log('Editor is ready to use!', editor);
-	            }}
-	            onChange={this.props.onChange}
-	        />
+	        <div className="editor-main-div">
+	            <Editor
+	                editorState={editorState}
+	                wrapperClassName="demo-wrapper"
+	                editorClassName="demo-editor"
+	                toolbarClassName="toolbar-class"
+	                onEditorStateChange={this.onEditorStateChange}
+	            />
+	        </div>
 	    );
 	}
 }
