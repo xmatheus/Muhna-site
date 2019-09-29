@@ -13,10 +13,13 @@ import { logout } from '../../services/auth';
 
 import swal from '@sweetalert/with-react';
 
+import UploadFiles from './uploadFiles';
+
 export default class News extends Component {
 	state = {
 	    onScreen: false,
-	    enviar: 0
+	    enviar: false,
+	    proxPag: false
 	};
 
 	componentDidMount = () => {
@@ -129,28 +132,51 @@ export default class News extends Component {
 	};
 
 	enviar = () => {
-	    this.setState({ enviar: 1 });
+	    this.setState({ enviar: true });
 
-	    const { title, resume, news } = this.state;
-	    api.post('/news/create', {
-	        title,
-	        resume,
-	        news
-	    })
-	        .then(response => {
-	            const { _id, status } = response.data;
-
-	            if (status === 401) {
-	                this.sessaoExpirada();
-	            }
-	            console.log('-> noticia enviada');
-	            this.setState({ enviar: 0 });
-	            this.noticiaEnviada();
+	    setTimeout(() => {
+	        const { title, resume, news } = this.state;
+	        api.post('/news/create', {
+	            title,
+	            resume,
+	            news
 	        })
-	        .catch(error => {
-	            this.setState({ enviar: 0 });
-	            this.deuErro();
+	            .then(response => {
+	                const { _id, status } = response.data;
+	                this.setState({ newsid: _id });
+	                if (status === 401) {
+	                    this.sessaoExpirada();
+	                }
+	                console.log('-> noticia enviada');
+	                this.setState({ enviar: false });
+	                this.changeEffect();
+	                this.noticiaEnviada();
+	                setTimeout(() => {
+	                    this.setState({ proxPag: true });
+	                }, 100);
+	            })
+	            .catch(error => {
+	                this.setState({ enviar: false });
+	                this.deuErro();
+	            });
+	    }, 200);
+	};
+
+	changeEffect = () => {
+	    const formOne = document.querySelector('.sub-div-news');
+	    formOne.classList.add('class-rightToLeft');
+	    const formError = document.querySelector('.class-rightToLeft');
+	    if (formError) {
+	        formError.addEventListener('animationend', event => {
+	            if (event.animationName === 'rightToLeft') {
+	                formError.classList.remove('class-rightToLeft');
+	            }
 	        });
+	    }
+	};
+
+	backPag = () => {
+	    this.setState({ proxPag: false });
 	};
 
 	render() {
@@ -162,46 +188,62 @@ export default class News extends Component {
 				    </div>
 				) : (
 				    <div className="main-News">
-				        <div className="sub-div-news">
-				            <form>
-				                <label>Titulo</label>
-				                <br></br>
-				                <input
-				                    type="text"
-				                    name="titulo"
-				                    onChange={this.handleChangeTitle}
-				                />
+				        {!this.state.proxPag ? (
+				            <div className="sub-div-news">
+				                <form>
+				                    <label>Titulo</label>
+				                    <br></br>
+				                    <input
+				                        type="text"
+				                        name="titulo"
+				                        onChange={this.handleChangeTitle}
+				                    />
 
-				                <label>Resumo</label>
-				                <br></br>
-				                <input
-				                    type="text"
-				                    name="resumo"
-				                    maxLength="226"
-				                    onChange={this.handleChangeResume}
-				                />
-				            </form>
-				            <div className="editor-text">
-				                <EditorText
-				                    onChange={this.handleChangeNews}
-				                ></EditorText>
-				            </div>
-				            <div className="button-div">
-				                <div id="pacmanLoad">
-				                    {this.state.enviar ? (
-				                        <Pacman color={'#000'} loading={true} />
-				                    ) : null}
+				                    <label>Resumo</label>
+				                    <br></br>
+				                    <input
+				                        type="text"
+				                        name="resumo"
+				                        maxLength="226"
+				                        onChange={this.handleChangeResume}
+				                    />
+				                </form>
+				                <div className="editor-text">
+				                    <EditorText
+				                        onChange={this.handleChangeNews}
+				                    ></EditorText>
 				                </div>
+				                <div className="button-div">
+				                    <div id="pacmanLoad">
+				                        {this.state.enviar ? (
+				                            <Pacman
+				                                color={'#000'}
+				                                loading={true}
+				                            />
+				                        ) : null}
+				                    </div>
 
-				                <button
-				                    onClick={() => {
-				                        this.enviar();
-				                    }}
-				                >
-									próximo
+				                    <button
+				                        onClick={() => {
+				                            this.enviar();
+				                        }}
+				                    >
+										próximo
+				                    </button>
+				                </div>
+				            </div>
+				        ) : (
+				            <div className="proxPage">
+				                <h1>Adicionar mídia a notícia</h1>
+				                <UploadFiles
+				                    newsid={this.state.newsid}
+				                ></UploadFiles>
+				                <button onClick={this.backPag}>
+				                    {' '}
+									Finalizar
 				                </button>
 				            </div>
-				        </div>
+				        )}
 				        <ul className="squares"></ul>
 				    </div>
 				)}

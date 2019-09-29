@@ -22,7 +22,8 @@
 	min-height: 300px;
 }
 
-.sub-div-news {
+.sub-div-news,
+.proxPage {
 	display: flex;
 	flex-direction: column;
 	border: 2px solid rgba(3, 3, 3, 0.733);
@@ -84,8 +85,7 @@ body {
 	width: 40px;
 	height: 40px;
 	/* background-color: rgba(54, 29, 1, 0.8); */
-	background-color: none;
-	border: 1px solid rgba(0, 0, 0, 0.9);
+	border: 10px solid rgb(75, 43, 7);
 	display: block;
 	position: absolute;
 	bottom: 40px;
@@ -105,6 +105,7 @@ body {
 	display: flex;
 	height: 110%;
 	width: 100%;
+	min-height: 80px;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
@@ -135,6 +136,72 @@ body {
 	background-color: rgb(9, 83, 19);
 	cursor: pointer;
 }
+
+.class-rightToLeft {
+	animation: rightToLeft 300ms linear;
+	animation-delay: 100;
+	animation-fill-mode: backwards;
+}
+
+.class-leftToRight {
+	animation: leftToRight 250ms linear;
+	animation-delay: 100;
+	animation-fill-mode: backwards;
+}
+.proxPage {
+	justify-content: center;
+	overflow-y: auto;
+	align-items: center;
+	animation: leftToRight 250ms linear;
+	animation-delay: 100;
+	animation-fill-mode: backwards;
+}
+
+.proxPage h1 {
+	text-align: center;
+}
+
+.proxPage button {
+	border: 0px;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: #06b61d;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.proxPage button:hover {
+	background-color: rgb(9, 83, 19);
+	cursor: pointer;
+}
+
+@keyframes rightToLeft {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(-700%);
+	}
+}
+
+@keyframes leftToRight {
+	from {
+		opacity: 0;
+		transform: translateX(500%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
 @keyframes up {
 	from {
 		opacity: 0;
