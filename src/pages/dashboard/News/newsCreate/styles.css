@@ -29,9 +29,8 @@
 	border: 2px solid rgba(3, 3, 3, 0.733);
 	border-radius: 10px;
 	width: 60%;
-	height: 80%;
+	height: 90%;
 	padding: 20px;
-	overflow: hidden;
 	overflow-y: auto;
 	position: sticky;
 	background-color: #ffffff;
@@ -65,9 +64,6 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-	-webkit-box-shadow: 0 0 0 30px white inset !important;
-}
 input:-webkit-autofill {
 	-webkit-text-fill-color: #000000de !important;
 }
@@ -103,9 +99,9 @@ body {
 }
 #pacmanLoad {
 	display: flex;
-	height: 110%;
 	width: 100%;
 	min-height: 80px;
+	min-width: 120px;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;

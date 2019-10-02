@@ -5,21 +5,23 @@ import './styles.css';
 
 import { Pacman } from 'react-pure-loaders';
 
-import EditorText from '../../editorText/index';
+import EditorText from '../../../../editorText';
 
-import api from '../../services/api';
+import api from '../../../../services/api';
 
-import { logout } from '../../services/auth';
+import { logout } from '../../../../services/auth';
 
 import swal from '@sweetalert/with-react';
 
-import UploadFiles from './uploadFiles';
+import UploadFiles from '../../uploadFiles';
 
-export default class News extends Component {
+export default class NewsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
 	    enviar: false,
-	    proxPag: false
+	    proxPag: false,
+	    title: this.props.title,
+	    resume: this.props.resume
 	};
 
 	componentDidMount = () => {
@@ -113,14 +115,14 @@ export default class News extends Component {
 	    });
 	};
 
-	noticiaEnviada = () => {
+	noticiaAlterada = () => {
 	    swal({
 	        content: (
 	            <div>
 	                <h1>:) deu certo</h1>
 	                <br />
 	                <br />
-	                <p>a notícia foi enviada</p>
+	                <p>a notícia foi alterada</p>
 	            </div>
 	        ),
 	        buttons: {
@@ -136,7 +138,7 @@ export default class News extends Component {
 
 	    setTimeout(() => {
 	        const { title, resume, news } = this.state;
-	        api.post('/news/create', {
+	        api.put(`news/update?newsid=${this.props.newsid}`, {
 	            title,
 	            resume,
 	            news
@@ -147,10 +149,10 @@ export default class News extends Component {
 	                if (status === 401) {
 	                    this.sessaoExpirada();
 	                }
-	                console.log('-> noticia enviada');
+	                console.log('-> noticia alterada');
 	                this.setState({ enviar: false });
 	                this.changeEffect();
-	                this.noticiaEnviada();
+	                this.noticiaAlterada();
 	                setTimeout(() => {
 	                    this.setState({ proxPag: true });
 	                }, 100);
@@ -194,14 +196,17 @@ export default class News extends Component {
 				                    <label>Titulo</label>
 				                    <br></br>
 				                    <input
+				                        value={this.state.title}
 				                        type="text"
 				                        name="titulo"
+				                        maxLength="60"
 				                        onChange={this.handleChangeTitle}
 				                    />
 
 				                    <label>Resumo</label>
 				                    <br></br>
 				                    <input
+				                        value={this.state.resume}
 				                        type="text"
 				                        name="resumo"
 				                        maxLength="226"
@@ -211,13 +216,14 @@ export default class News extends Component {
 				                <div className="editor-text">
 				                    <EditorText
 				                        onChange={this.handleChangeNews}
+				                        html={this.props.news}
 				                    ></EditorText>
 				                </div>
 				                <div className="button-div">
 				                    <div id="pacmanLoad">
 				                        {this.state.enviar ? (
 				                            <Pacman
-				                                color={'#000'}
+				                                color={'#3f2306'}
 				                                loading={true}
 				                            />
 				                        ) : null}
@@ -236,10 +242,16 @@ export default class News extends Component {
 				            <div className="proxPage">
 				                <h1>Adicionar mídia a notícia</h1>
 				                <UploadFiles
-				                    newsid={this.state.newsid}
+				                    newsid={this.props.newsid}
 				                ></UploadFiles>
-				                <button onClick={this.backPag}>
-				                    {' '}
+				                <button
+				                    onClick={() => {
+				                        this.props.getNews(this.props.page);
+				                        setTimeout(() => {
+				                            this.props.backpag();
+				                        }, 100);
+				                    }}
+				                >
 									Finalizar
 				                </button>
 				            </div>

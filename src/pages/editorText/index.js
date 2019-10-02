@@ -11,6 +11,7 @@ export default class EditorText extends Component {
     constructor(props) {
         super(props);
         const html =
+			props.html ||
 			'<p>Escreva o texto da <strong>notícia</strong> aqui 😀</p>';
         const contentBlock = htmlToDraft(html);
         if (contentBlock) {

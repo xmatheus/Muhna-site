@@ -46,7 +46,11 @@ const FileList = ({ files, onDelete }) => (
                         />
                     )}
                     {uploadfile.url && (
-                        <a href={uploadfile.url} target="_blank">
+                        <a
+                            href={uploadfile.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <MdLink
                                 style={{ marginRight: 8 }}
                                 size={24}

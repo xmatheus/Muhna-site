@@ -27,6 +27,10 @@ export const Container = styled.div`
 				margin-right: 15px;
 				cursor: pointer;
 			}
+			button:hover {
+				background: #da3e3e;
+				color: white;
+			}
 		}
 	}
 `;

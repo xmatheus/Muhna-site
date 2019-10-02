@@ -11,7 +11,9 @@ import { getData } from '../../services/auth';
 
 import logo from '../../../assets/logo.png';
 
-import News from '../News';
+import NewsCreate from '../News/newsCreate';
+
+import NewsChange from '../News/newsChange'
 
 export default class BarLeft extends Component {
 	state = {
@@ -68,7 +70,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<News history={this.props.history}/>);
+	                                            this.props.component(<NewsCreate history={this.props.history}/>);
 	                                        }}
 	                                    >
 	                                        <FaNewspaper
@@ -79,11 +81,7 @@ export default class BarLeft extends Component {
 	                                    </div>
 
 	                                    <div
-	                                        className="div-horizontal-subMenu"
-	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
-	                                        }}
-	                                    >
+	                                        className="div-horizontal-subMenu" onClick={() => { this.props.component(<NewsChange history={this.props.history}/>);}}>
 	                                        <FaNewspaper
 	                                            color={this.state.color}
 	                                            size={16}
@@ -173,7 +171,7 @@ export default class BarLeft extends Component {
 	                                        <p>Excluir postagem</p>
 
 	                                    </div>
-										<div
+	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
 	                                            this.props.component(<h1>Em desenvolvimento</h1>);
@@ -190,7 +188,7 @@ export default class BarLeft extends Component {
 	                            ) : null}
 	                        </div>
 	                        {this.state.data.isAdmin ? (
-								<div className="div-vertical">
+	                            <div className="div-vertical">
 	                            <div
 	                                className="div-horizontal"
 	                                onClick={() => {
