@@ -89,7 +89,7 @@ export default class NewsCreateChanged extends Component {
 	                value: 1
 	            }
 	        }
-	    }).then(value => {
+	    }).then(() => {
 	        this.props.history.push('/');
 	    });
 	};

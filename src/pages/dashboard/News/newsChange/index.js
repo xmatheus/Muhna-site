@@ -25,7 +25,9 @@ export default class NewsChange extends Component {
 	    onScreen: false,
 	    enviar: false,
 	    proxPag: false,
-	    page: 1
+	    searchActive: false,
+	    page: 1,
+	    value: 'Digite o título das notícias'
 	};
 
 	componentDidMount = () => {
@@ -39,7 +41,7 @@ export default class NewsChange extends Component {
 
 	getNews = async (page = 1) => {
 	    try {
-	        const response = await api.get(`/news/show?page=${page}`);
+	        const response = await api.get(`/news/show?page=${page}&limite=5`);
 
 	        const { docs, ...pages } = response.data;
 
@@ -195,6 +197,23 @@ export default class NewsChange extends Component {
 	    this.setState({ proxPag: false });
 	};
 
+	changeInput = async e => {
+	    const value = e.target.value;
+	    this.setState({ value });
+
+	    if (value.length > 0) {
+	        this.setState({ searchActive: true });
+	        const response = await api.post(`/news/search?title=${value}`);
+
+	        const { docs } = response.data;
+
+	        this.setState({ docs });
+	    } else {
+	        this.setState({ searchActive: false });
+	        this.getNews(this.state.page);
+	    }
+	};
+
 	render() {
 	    const { pages, page } = this.state;
 	    return (
@@ -207,18 +226,49 @@ export default class NewsChange extends Component {
 				    <div className="newsChange-main-News">
 				        {!this.state.proxPag ? (
 				            <div className="newsChange-sub-div-news">
+				                <div id="inputOne">
+				                    <br />
+				                    <input
+				                        value={this.state.value}
+				                        type="text"
+				                        onChange={this.changeInput}
+				                        onBlur={() => {
+				                            this.setState({
+				                                value:
+													'Digite o título das notícias'
+				                            });
+
+				                            setTimeout(() => {
+				                                this.getNews(this.state.page);
+				                                this.setState({
+				                                    searchActive: false
+				                                });
+				                            }, 100);
+				                        }}
+				                        onFocus={() => {
+				                            this.setState({
+				                                value: ''
+				                            });
+				                        }}
+				                    />
+				                    <br />
+				                    <br />
+				                </div>
 				                {this.state.docs ? (
 									<>
 										{this.state.docs.length ? (
 											<>
-												<>
-													<h2>Todas as notícias</h2>
-													<p>
-													    {page +
-															'/' +
-															pages.pages}
-													</p>
-												</>
+												<div className="div-title-changeNews">
+												    {!this.state
+												        .searchActive ? (
+														<>
+															<h2>
+																Ou veja todas as
+																notícias
+															</h2>
+														</>
+												        ) : null}
+												</div>
 												<div className="newsChange-sub-div-news-li">
 												    {this.state.docs.map(
 												        news => (
@@ -249,9 +299,11 @@ export default class NewsChange extends Component {
 												                        }}
 												                    />
 												                    <span>
-												                        {this.ArrumaData(
-												                            news.createAt
-												                        )}
+												                        {news.createAt
+												                            ? this.ArrumaData(
+												                                news.createAt
+																			  )
+												                            : 'null'}
 												                    </span>
 												                </div>
 												                <div className="icons-horizontal">
@@ -266,25 +318,40 @@ export default class NewsChange extends Component {
 												                        }}
 												                    />
 												                    <span>
-												                        {
-												                            news.autor
-												                        }
+												                        {news.autor ||
+																			''}
 												                    </span>
 												                </div>
 												            </li>
 												        )
 												    )}
 												</div>
+												{!this.state.searchActive ? (
+												    <div>
+												        <p>
+												            {page +
+																'/' +
+																pages.pages}
+												        </p>
+												    </div>
+												) : null}
 												<div className="div-button-proxAndback">
 												    <button
-												        disabled={page === 1}
+												        disabled={
+												            page === 1 ||
+															this.state
+															    .searchActive
+												        }
 												        onClick={this.back}
 												    >
 														Voltar
 												    </button>
 												    <button
 												        disabled={
-												            page === pages.pages
+												            page ===
+																pages.pages ||
+															this.state
+															    .searchActive
 												        }
 												        onClick={this.prox}
 												    >

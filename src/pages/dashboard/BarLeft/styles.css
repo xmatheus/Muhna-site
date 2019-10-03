@@ -150,6 +150,7 @@
 	margin-bottom: 20px;
 	animation: caiSubMenus 150ms ease-out;
 	animation-fill-mode: backwards;
+	user-select: none;
 }
 
 @keyframes caiSubMenus {

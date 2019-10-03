@@ -7,24 +7,28 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
 import './styles.css';
+
+const defaultText =
+	'<p>Escreva o texto da <strong>notícia</strong> aqui 😀</p>';
 export default class EditorText extends Component {
     constructor(props) {
         super(props);
-        const html =
-			props.html ||
-			'<p>Escreva o texto da <strong>notícia</strong> aqui 😀</p>';
-        const contentBlock = htmlToDraft(html);
-        if (contentBlock) {
-            const contentState = ContentState.createFromBlockArray(
-                contentBlock.contentBlocks
-            );
-            const editorState = EditorState.createWithContent(contentState);
-            this.state = {
-                editorState
-            };
-        }
+        this.changeTextEditor();
     }
 
+	changeTextEditor = texto => {
+	    const html = texto || this.props.html || defaultText;
+	    const contentBlock = htmlToDraft(html);
+	    if (contentBlock) {
+	        const contentState = ContentState.createFromBlockArray(
+	            contentBlock.contentBlocks
+	        );
+	        const editorState = EditorState.createWithContent(contentState);
+	        this.state = {
+	            editorState
+	        };
+	    }
+	};
 	onEditorStateChange: Function = editorState => {
 	    this.setState({
 	        editorState

@@ -58,6 +58,16 @@
 	padding-top: 3px;
 }
 
+.newsChange-sub-div-news input {
+	padding: 5px;
+	border-radius: 3px;
+	border: 1.3px solid rgb(46, 25, 1);
+	color: rgb(149, 149, 149);
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+}
+
 .icons-horizontal {
 	display: flex;
 	justify-content: flex-start;
@@ -168,6 +178,13 @@ body {
 
 .newsChange-sub-div-news {
 	animation: fade 300 linear;
+}
+
+.div-title-changeNews {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 @keyframes up {
