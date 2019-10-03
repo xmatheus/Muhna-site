@@ -38,11 +38,15 @@ export default class NewsChange extends Component {
 	};
 
 	getNews = async (page = 1) => {
-	    const response = await api.get(`/news/show?page=${page}`);
+	    try {
+	        const response = await api.get(`/news/show?page=${page}`);
 
-	    const { docs, ...pages } = response.data;
+	        const { docs, ...pages } = response.data;
 
-	    this.setState({ docs, pages, page });
+	        this.setState({ docs, pages, page });
+	    } catch (error) {
+	        this.noInternet();
+	    }
 	};
 
 	EffectCubo = () => {
@@ -117,6 +121,25 @@ export default class NewsChange extends Component {
 	    });
 	};
 
+	noInternet = () => {
+	    swal({
+	        content: (
+	            <div>
+	                <h1>:( deu erro</h1>
+	                <br />
+	                <br />
+	                <p>você está conectado a internet?</p>
+	            </div>
+	        ),
+	        buttons: {
+	            catch: {
+	                text: 'ok',
+	                value: 1
+	            }
+	        }
+	    });
+	};
+
 	noticiaEnviada = () => {
 	    swal({
 	        content: (
@@ -133,37 +156,6 @@ export default class NewsChange extends Component {
 	            }
 	        }
 	    });
-	};
-
-	enviar = () => {
-	    this.setState({ enviar: true });
-
-	    setTimeout(() => {
-	        const { title, resume, news } = this.state;
-	        api.post('/news/create', {
-	            title,
-	            resume,
-	            news
-	        })
-	            .then(response => {
-	                const { _id, status } = response.data;
-	                this.setState({ newsid: _id });
-	                if (status === 401) {
-	                    this.sessaoExpirada();
-	                }
-	                console.log('-> noticia enviada');
-	                this.setState({ enviar: false });
-	                this.changeEffect();
-	                this.noticiaEnviada();
-	                setTimeout(() => {
-	                    this.setState({ proxPag: true });
-	                }, 100);
-	            })
-	            .catch(error => {
-	                this.setState({ enviar: false });
-	                this.deuErro();
-	            });
-	    }, 200);
 	};
 
 	ArrumaData = data => {

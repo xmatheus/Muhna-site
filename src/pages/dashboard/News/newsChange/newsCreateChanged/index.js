@@ -21,7 +21,8 @@ export default class NewsCreateChanged extends Component {
 	    enviar: false,
 	    proxPag: false,
 	    title: this.props.title,
-	    resume: this.props.resume
+	    resume: this.props.resume,
+	    news: this.props.news
 	};
 
 	componentDidMount = () => {

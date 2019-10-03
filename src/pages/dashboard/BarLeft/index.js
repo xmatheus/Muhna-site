@@ -15,6 +15,8 @@ import NewsCreate from '../News/newsCreate';
 
 import NewsChange from '../News/newsChange'
 
+import NewsDelete from '../News/newsDelete'
+
 export default class BarLeft extends Component {
 	state = {
 	    data: [],
@@ -91,7 +93,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+	                                            this.props.component(<NewsDelete history={this.props.history}/>);
 	                                        }}
 	                                    >
 	                                        <FaNewspaper
