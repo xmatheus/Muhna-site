@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-// import { Container } from './styles';\
 import './styles.css';
+
+import '../../stylesRetangulo/styles.css';
 
 import { Pacman } from 'react-pure-loaders';
 

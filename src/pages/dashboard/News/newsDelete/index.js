@@ -14,12 +14,11 @@ import { logout } from '../../../services/auth';
 
 import './styles.css';
 
+import '../../stylesRetangulo/styles.css';
+
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class NewsDelete extends Component {
-    constructor(props) {
-        super(props);
-    }
 
 	state = {
 	    onScreen: false,
@@ -277,7 +276,7 @@ export default class NewsDelete extends Component {
 											{!this.state.searchActive ? (<>
 												<div className="div-title-deleteNews">
 											    <h2>Ou veja todas as notícias</h2>
-											</div></>):(null)}
+												</div></>):(null)}
 
 											<div className="div-li-excludeNews">
 											    <div className="new-newsChange-sub-div-news-li">
@@ -369,7 +368,7 @@ export default class NewsDelete extends Component {
 																pages.pages}
 												        </p>
 												    </div>
-												) : null}
+											) : null}
 											<div className="div-button-proxAndback">
 											    <button
 											        disabled={page === 1}

@@ -57,7 +57,7 @@ a:visited:active {
 	padding-left: 20px;
 }
 
-.squares li {
+/* .squares li {
 	z-index: -1;
 	width: 40px;
 	height: 40px;
@@ -67,7 +67,7 @@ a:visited:active {
 	position: absolute;
 	bottom: 40px;
 	animation: up 2s infinite alternate;
-}
+} */
 
 @keyframes up {
 	from {

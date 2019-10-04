@@ -11,11 +11,15 @@ import { getData } from '../../services/auth';
 
 import logo from '../../../assets/logo.png';
 
+import AboutPage from '../AboutPage'
+
 import NewsCreate from '../News/newsCreate';
 
 import NewsChange from '../News/newsChange'
 
 import NewsDelete from '../News/newsDelete'
+
+
 
 export default class BarLeft extends Component {
 	state = {
@@ -34,7 +38,7 @@ export default class BarLeft extends Component {
 	            {this.state.data ? (
 	                <>
 	                    <div className="barleft-one-div">
-	                        <img alt="logo MuHNA" id="img-div" src={logo}></img>
+	                        <img  alt="logo MuHNA" id="img-div" src={logo}></img>
 	                        <p id="p-hello-visit">
 	                            {'Olá, ' + this.state.data.name + '.'}
 	                        </p>
@@ -184,7 +188,7 @@ export default class BarLeft extends Component {
 	                                            size={16}
 	                                        />
 	                                        <p>Gerar QrCode</p>
-											
+
 	                                    </div>
 	                                </div>
 	                            ) : null}
@@ -245,7 +249,7 @@ export default class BarLeft extends Component {
 	                                        <p>Excluir usuário</p>
 
 	                                    </div>
-										
+
 	                                </div>
 	                            ) : null}
 	                        </div>

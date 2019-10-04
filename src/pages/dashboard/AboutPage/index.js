@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 // import { Container } from './styles';
 import './styles.css';
 
+import '../stylesRetangulo/styles.css';
+
 import { FaUserAstronaut, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 export default class AboutPage extends Component {

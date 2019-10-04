@@ -1,0 +1,11 @@
+.squares li {
+	z-index: -1;
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	border: 1.2px solid rgba(0, 0, 0, 0.7);
+	display: block;
+	position: absolute;
+	bottom: 40px;
+	animation: up 2s infinite alternate;
+}

@@ -14,12 +14,13 @@ import { logout } from '../../../services/auth';
 
 import './styles.css';
 
+import '../../stylesRetangulo/styles.css';
+
 import NewsCreateChanged from './newsCreateChanged';
 
+
+
 export default class NewsChange extends Component {
-    constructor(props) {
-        super(props);
-    }
 
 	state = {
 	    onScreen: false,

@@ -18,10 +18,6 @@ import api from '../../../services/api';
 import yt from '../../../../assets/yt.jpg';
 
 export default class UploadFiles extends Component {
-    constructor(props) {
-        super(props);
-    }
-
 	state = {
 	    uploadFiles: []
 	};
