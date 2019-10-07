@@ -9,12 +9,11 @@ import EditorText from '../../../../editorText';
 
 import api from '../../../../services/api';
 
-import { logout } from '../../../../services/auth';
-
 import swal from '@sweetalert/with-react';
 
 import UploadFiles from '../../uploadFiles';
 
+import { login, saveData } from '../../../../services/auth';
 export default class NewsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -22,7 +21,8 @@ export default class NewsCreateChanged extends Component {
 	    proxPag: false,
 	    title: this.props.title,
 	    resume: this.props.resume,
-	    news: this.props.news
+	    news: this.props.news,
+	    error: false
 	};
 
 	componentDidMount = () => {
@@ -43,66 +43,81 @@ export default class NewsCreateChanged extends Component {
 	    this.setState({ news });
 	};
 
-	sessaoExpirada = () => {
-	    logout();
-	    swal({
-	        content: (
-	            <div>
-	                <h1>Opa, sua sessão expirou.</h1>
-	                <br />
-	                <br />
-	                <p>faça login novamente!</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo',
-	                value: 1
-	            }
-	        }
-	    }).then(() => {
-	        this.props.history.push('/');
-	    });
+	handleChangeEmail = event => {
+	    this.setState({ email: event.target.value });
+	};
+
+	handleChangePasswd = event => {
+	    this.setState({ password: event.target.value });
+	};
+
+	loginEnviar = () => {
+	    const { email, password } = this.state;
+
+	    api.post('/auth/authenticate', {
+	        email: email,
+	        password: password
+	    })
+	        .then(response => {
+	            const { token, user } = response.data;
+	            login(token);
+	            saveData(user);
+	            swal.stopLoading();
+	            this.loginFeito();
+	        })
+	        .catch(() => {
+	            this.erroLogin();
+	            swal.stopLoading();
+	        });
 	};
 
 	deuErro = () => {
-	    logout();
 	    swal({
+	        title: 'Opa, problemas :|',
 	        content: (
-	            <div>
-	                <h1>:( deu erro</h1>
-	                <br />
-	                <br />
-	                <p>tente fazer login novamente</p>
+	            <div id="div-input-popup-main">
+	                <div id="div-input-popup">
+	                    <label>email</label>
+	                    <input
+	                        type="text"
+	                        onChange={this.handleChangeEmail}
+	                    ></input>
+	                    <label>senha</label>
+	                    <input
+	                        type="password"
+	                        onChange={this.handleChangePasswd}
+	                    ></input>
+	                </div>
 	            </div>
 	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo',
-	                value: 1
-	            }
+	        text: 'Sua sessão deve ter chagado ao fim, faça login novamente.',
+	        icon: 'warning',
+	        button: {
+	            text: 'Fazer login',
+	            closeModal: false
+	        },
+	        dangerMode: true
+	    }).then(option => {
+	        if (option) {
+	            this.loginEnviar();
 	        }
-	    }).then(value => {
-	        this.props.history.push('/');
 	    });
 	};
 
 	noticiaAlterada = () => {
-	    swal({
-	        content: (
-	            <div>
-	                <h1>:) deu certo</h1>
-	                <br />
-	                <br />
-	                <p>a notícia foi alterada</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo'
-	            }
-	        }
-	    });
+	    swal('Sucesso', 'A notícia foi alterada!', 'success');
+	};
+
+	loginFeito = () => {
+	    swal('Sucesso', 'login feito, sua sessão foi restaurada.', 'success');
+	};
+
+	erroLogin = () => {
+	    swal(
+	        'Error no login',
+	        'sua sessão não foi restaurada. \nAlterações/envios/remoções não serão concluidas enquanto o login não for feito.',
+	        'error'
+	    );
 	};
 
 	enviar = () => {
@@ -119,7 +134,7 @@ export default class NewsCreateChanged extends Component {
 	                const { _id, status } = response.data;
 	                this.setState({ newsid: _id });
 	                if (status === 401) {
-	                    this.sessaoExpirada();
+	                    this.deuErro();
 	                }
 	                console.log('-> noticia alterada');
 	                this.setState({ enviar: false });

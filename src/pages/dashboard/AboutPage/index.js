@@ -7,6 +7,8 @@ import '../stylesRetangulo/styles.css';
 
 import { FaUserAstronaut, FaGithub, FaEnvelope } from 'react-icons/fa';
 
+import swal from '@sweetalert/with-react';
+
 export default class AboutPage extends Component {
 	componentDidMount = () => {
 	    setTimeout(() => {

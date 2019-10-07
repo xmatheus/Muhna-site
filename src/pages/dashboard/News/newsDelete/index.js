@@ -10,7 +10,7 @@ import { MdDateRange, MdPerson, MdDelete } from 'react-icons/md';
 
 import api from '../../../services/api';
 
-import { logout } from '../../../services/auth';
+import { login, saveData } from '../../../services/auth';
 
 import './styles.css';
 
@@ -23,7 +23,8 @@ export default class NewsDelete extends Component {
 	state = {
 	    onScreen: false,
 	    enviar: false,
-	    page: 1
+	    page: 1,
+	    value: 'Digite o título das notícias'
 	};
 
 	componentDidMount = () => {
@@ -40,19 +41,44 @@ export default class NewsDelete extends Component {
 	        docs: this.state.docs.filter(news => news._id !== id)
 	    });
 	};
-	deleteNews = async id => {
+
+	PopupDeelete = (id) => {
+
+	    swal({
+	        title: 'Exluir notícia',
+	        text: 'Tem certeza de que deseja excluir essa notícia?',
+	        icon: 'warning',
+	        buttons: ['cancelar', 'apagar'],
+	        dangerMode: true,
+		  })
+		  .then((willDelete) => {
+	            if (willDelete) {
+	                this.deleteNews(id);
+	            }
+		  });
+		
+	}
+	deleteNews =  id => {
 	    const { docs, page } = this.state;
 
 	    if (docs.length === 1) {
 	        this.getNews(page);
 	    }
-	    try {
-	        await api.post(`/news/remove?newsid=${id}`);
-
-	        this.removeFromState(id);
-	    } catch (error) {
-	        this.deuErro();
-	    }
+	    
+		api.post(`/news/remove?newsid=${id}`)
+		.then( response => {
+	        if(response.status !== 200){
+				console.log(response.status)
+				this.deuErro()
+				return;
+	        }
+			
+			swal('Sucesso', 'A notícia foi excluida!', 'success');
+			this.removeFromState(id);
+	    })
+	    .catch (erro => {
+	        this.deuErro()
+	    })
 	};
 
 	getNews = async (page = 1) => {
@@ -95,48 +121,82 @@ export default class NewsDelete extends Component {
 	    }
 	};
 
-	sessaoExpirada = () => {
-	    logout();
-	    swal({
-	        content: (
-	            <div>
-	                <h1>Opa, sua sessão expirou.</h1>
-	                <br />
-	                <br />
-	                <p>faça login novamente!</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo',
-	                value: 1
-	            }
-	        }
-	    }).then(value => {
-	        this.props.history.push('/');
-	    });
+
+	handleChangeEmail = event => {
+	    this.setState({ email: event.target.value });
+	};
+
+	handleChangePasswd = event => {
+	    this.setState({ password: event.target.value });
 	};
 
 	deuErro = () => {
-	    logout();
 	    swal({
+	        title: 'Opa, problemas :|',
 	        content: (
-	            <div>
-	                <h1>:( deu erro</h1>
-	                <br />
-	                <br />
-	                <p>tente fazer login novamente</p>
+	            <div id="div-input-popup-main">
+	                <div id="div-input-popup">
+	                    <label>email</label>
+	                    <input
+	                        type="text"
+	                        onChange={this.handleChangeEmail}
+	                    ></input>
+	                    <label>senha</label>
+	                    <input
+	                        type="password"
+	                        onChange={this.handleChangePasswd}
+	                    ></input>
+	                </div>
 	            </div>
 	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo',
-	                value: 1
-	            }
+	        text: 'Sua sessão deve ter chagado ao fim, faça login novamente.',
+	        icon: 'warning',
+	        button: {
+	            text: 'Fazer login',
+	            closeModal: false
+	        },
+	        dangerMode: true
+	    }).then(option => {
+	        if (option) {
+	            this.loginEnviar();
 	        }
-	    }).then(value => {
-	        this.props.history.push('/');
 	    });
+	};
+
+	loginEnviar = () => {
+	    const { email, password } = this.state;
+
+	    api.post('/auth/authenticate', {
+	        email: email,
+	        password: password
+	    })
+	        .then(response => {
+	            const { token, user } = response.data;
+	            login(token);
+	            saveData(user);
+	            swal.stopLoading();
+	            this.loginFeito();
+	        })
+	        .catch(() => {
+	            this.erroLogin();
+	            swal.stopLoading();
+	        });
+	};
+
+	noticiaEnviada = () => {
+	    swal('Sucesso', 'A notícia foi enviada!', 'success');
+	};
+
+	loginFeito = () => {
+	    swal('Sucesso', 'login feito, sua sessão foi restaurada.', 'success');
+	};
+
+	erroLogin = () => {
+	    swal(
+	        'Error no login',
+	        'sua sessão não foi restaurada. \nAlterações/envios/remoções não serão concluidas enquanto o login não for feito.',
+	        'error'
+	    );
 	};
 
 	noInternet = () => {
@@ -342,9 +402,7 @@ export default class NewsDelete extends Component {
 											                        <div
 											                            className="button-delete"
 											                            onClick={() => {
-											                                this.deleteNews(
-											                                    news._id
-											                                );
+											                                this.PopupDeelete(news._id)
 											                            }}
 											                        >
 											                            <MdDelete

@@ -18,10 +18,7 @@ import '../../stylesRetangulo/styles.css';
 
 import NewsCreateChanged from './newsCreateChanged';
 
-
-
 export default class NewsChange extends Component {
-
 	state = {
 	    onScreen: false,
 	    enviar: false,
@@ -126,20 +123,11 @@ export default class NewsChange extends Component {
 
 	noInternet = () => {
 	    swal({
-	        content: (
-	            <div>
-	                <h1>:( deu erro</h1>
-	                <br />
-	                <br />
-	                <p>você está conectado a internet?</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'ok',
-	                value: 1
-	            }
-	        }
+	        title: 'Opa, problemas :|',
+	        text: 'Sua internet caiu?',
+	        icon: 'warning',
+	        buttons: 'fechar',
+	        dangerMode: true
 	    });
 	};
 
