@@ -1,4 +1,4 @@
-.main-News-loading {
+.main-Posts-loading {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -7,7 +7,7 @@
 	height: 100vh;
 }
 
-.main-News {
+.main-Posts {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -22,7 +22,7 @@
 	min-height: 300px;
 }
 
-.sub-div-news,
+.sub-div-post,
 .proxPage {
 	display: flex;
 	flex-direction: column;
@@ -36,13 +36,13 @@
 	background-color: #ffffff;
 }
 
-.sub-div-news label {
+.sub-div-post label {
 	color: black;
 	font-size: 18px;
 	font-weight: bold;
 }
 
-.sub-div-news input {
+.sub-div-post input {
 	margin-top: 5px;
 	margin-bottom: 20px;
 	width: 100%;
@@ -54,19 +54,10 @@
 	font-size: 16px;
 	display: inline-block;
 	border: 1px solid rgb(44, 25, 2);
-	background-color: none;
 }
 
-.sub-div-news input:focus {
+.sub-div-post input:focus {
 	background-color: none;
-}
-
-/* Change the white to any color ;) */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill {
-	-webkit-text-fill-color: #000000de !important;
 }
 
 /* squares */
@@ -164,7 +155,6 @@ body {
 	cursor: pointer;
 }
 
-/* popup */
 #div-input-popup-main {
 	display: flex;
 	flex-direction: column;

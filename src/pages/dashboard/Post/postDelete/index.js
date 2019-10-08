@@ -18,12 +18,12 @@ import '../../stylesRetangulo/styles.css';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-export default class NewsDelete extends Component {
+export default class PostDelete extends Component {
 	state = {
 	    onScreen: false,
 	    enviar: false,
 	    page: 1,
-	    value: 'Digite o título da notícia'
+	    value: 'Digite o título da postagem'
 	};
 
 	componentDidMount = () => {
@@ -32,36 +32,37 @@ export default class NewsDelete extends Component {
 	        this.EffectCubo();
 	    }, 100);
 
-	    this.getNews(this.state.page);
+	    this.getPosts(this.state.page);
 	};
 
 	removeFromState = id => {
 	    this.setState({
-	        docs: this.state.docs.filter(news => news._id !== id)
+	        docs: this.state.docs.filter(post => post._id !== id)
 	    });
 	};
 
 	PopupDeelete = id => {
 	    swal({
-	        title: 'Exluir notícia',
-	        text: 'Tem certeza de que deseja excluir essa notícia?',
+	        title: 'Exluir postagem',
+	        text: 'Tem certeza de que deseja excluir essa postagem?',
 	        icon: 'warning',
 	        buttons: ['cancelar', 'apagar'],
 	        dangerMode: true
 	    }).then(willDelete => {
 	        if (willDelete) {
-	            this.deleteNews(id);
+	            this.deletePost(id);
 	        }
 	    });
 	};
-	deleteNews = id => {
+	
+	deletePost = id => {
 	    const { docs, page } = this.state;
 
 	    if (docs.length === 1) {
-	        this.getNews(page);
+	        this.getPosts(page);
 	    }
 
-	    api.post(`/news/remove?newsid=${id}`)
+	    api.post(`/post/remove?postid=${id}`)
 	        .then(response => {
 	            if (response.status !== 200) {
 	                console.log(response.status);
@@ -69,7 +70,7 @@ export default class NewsDelete extends Component {
 	                return;
 	            }
 
-	            swal('Sucesso', 'A notícia foi excluida!', 'success');
+	            swal('Sucesso', 'A postagem foi excluida!', 'success');
 	            this.removeFromState(id);
 	        })
 	        .catch(erro => {
@@ -77,9 +78,9 @@ export default class NewsDelete extends Component {
 	        });
 	};
 
-	getNews = async (page = 1) => {
+	getPosts = async (page = 1) => {
 	    try {
-	        const response = await api.get(`/news/show?page=${page}&limite=5`);
+	        const response = await api.get(`/post/show?page=${page}&limite=5`);
 
 	        const { docs, ...pages } = response.data;
 
@@ -178,9 +179,7 @@ export default class NewsDelete extends Component {
 	        });
 	};
 
-	noticiaEnviada = () => {
-	    swal('Sucesso', 'A notícia foi enviada!', 'success');
-	};
+	
 
 	loginFeito = () => {
 	    swal('Sucesso', 'login feito, sua sessão foi restaurada.', 'success');
@@ -206,30 +205,13 @@ export default class NewsDelete extends Component {
 	        ),
 	        buttons: {
 	            catch: {
-	                text: 'ok',
+	                text: 'fechar',
 	                value: 1
 	            }
 	        }
 	    });
 	};
 
-	noticiaEnviada = () => {
-	    swal({
-	        content: (
-	            <div>
-	                <h1>:) deu certo</h1>
-	                <br />
-	                <br />
-	                <p>a notícia foi enviada</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo'
-	            }
-	        }
-	    });
-	};
 
 	ArrumaData = data => {
 	    return data.substring(0, 10);
@@ -243,7 +225,7 @@ export default class NewsDelete extends Component {
 	    } else {
 	        page -= 1;
 	        this.setState({ docs: null });
-	        this.getNews(page);
+	        this.getPosts(page);
 	    }
 	};
 
@@ -255,12 +237,12 @@ export default class NewsDelete extends Component {
 	    } else {
 	        page += 1;
 	        this.setState({ docs: null });
-	        this.getNews(page);
+	        this.getPosts(page);
 	    }
 	};
 
-	editNews = (title, resume, news, newsid) => {
-	    this.setState({ title, resume, news, newsid });
+	editPost = (title, resume, post, postid) => {
+	    this.setState({ title, resume, post, postid });
 	    this.setState({ proxPag: true });
 	};
 
@@ -274,14 +256,14 @@ export default class NewsDelete extends Component {
 
 	    if (value.length > 0) {
 	        this.setState({ searchActive: true });
-	        const response = await api.post(`/news/search?title=${value}`);
+	        const response = await api.post(`/post/search?title=${value}`);
 
 	        const { docs } = response.data;
 
 	        this.setState({ docs });
 	    } else {
 	        this.setState({ searchActive: false });
-	        this.getNews(this.state.page);
+	        this.getPosts(this.state.page);
 	    }
 	};
 
@@ -290,12 +272,12 @@ export default class NewsDelete extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="newsChange-main-News-loading">
+				    <div className="postChange-main-Post-loading">
 				        <Pacman color={'#3f2306'} loading={true} />
 				    </div>
 				) : (
-				    <div className="newsChange-main-News">
-				        <div className="newsChange-sub-div-news">
+				    <div className="postChange-main-Post">
+				        <div className="postChange-sub-div-post">
 				            <div id="inputOne">
 				                <br />
 				                <input
@@ -305,11 +287,11 @@ export default class NewsDelete extends Component {
 				                    onBlur={() => {
 				                        this.setState({
 				                            value:
-												'Digite o título das notícias'
+												'Digite o título da postagem'
 				                        });
 
 				                        setTimeout(() => {
-				                            this.getNews(this.state.page);
+				                            this.getPosts(this.state.page);
 				                            this.setState({
 				                                searchActive: false
 				                            });
@@ -330,17 +312,17 @@ export default class NewsDelete extends Component {
 										<>
 											{!this.state.searchActive ? (
 												<>
-													<div className="div-title-deleteNews">
+													<div className="div-title-deletePost">
 													    <h2>
 															Ou veja todas as
-															notícias
+															postagens
 													    </h2>
 													</div>
 												</>
 											) : null}
 
-											<div className="div-li-excludeNews">
-											    <div className="new-newsChange-sub-div-news-li">
+											<div className="div-li-excludePost">
+											    <div className="new-postChange-sub-div-post-li">
 											        <ReactCSSTransitionGroup
 											            transitionName="example"
 											            transitionEnterTimeout={
@@ -351,16 +333,16 @@ export default class NewsDelete extends Component {
 											            }
 											        >
 											            {this.state.docs.map(
-											                news => (
+											                post => (
 											                    <li
 											                        key={
-											                            news._id
+											                            post._id
 											                        }
 											                    >
 											                        <div className="div-vertical">
 											                            <div>
 											                                <h4>
-											                                    {news.title ||
+											                                    {post.title ||
 																					'"sem titulo"'}
 											                                </h4>
 											                                <div className="icons-horizontal">
@@ -375,9 +357,9 @@ export default class NewsDelete extends Component {
 											                                        }}
 											                                    />
 											                                    <span>
-											                                        {news.createAt
+											                                        {post.createAt
 											                                            ? this.ArrumaData(
-											                                                news.createAt
+											                                                post.createAt
 																						  )
 											                                            : null}
 											                                    </span>
@@ -395,7 +377,7 @@ export default class NewsDelete extends Component {
 											                                    }}
 											                                />
 											                                <span>
-											                                    {news.autor ||
+											                                    {post.autor ||
 																					''}
 											                                </span>
 											                            </div>
@@ -404,7 +386,7 @@ export default class NewsDelete extends Component {
 											                            className="button-delete"
 											                            onClick={() => {
 											                                this.PopupDeelete(
-											                                    news._id
+											                                    post._id
 											                                );
 											                            }}
 											                        >
@@ -449,7 +431,7 @@ export default class NewsDelete extends Component {
 										</>
 									) : (
 										<>
-											<h2>Nenhuma notícia encontrada</h2>
+											<h2>Nenhuma postagem encontrada</h2>
 										</>
 									)}
 								</>

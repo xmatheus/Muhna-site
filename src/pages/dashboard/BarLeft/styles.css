@@ -64,6 +64,7 @@
 .barleft-main-div img:hover {
 	background: #ffffff;
 	border: 5px solid #ffffff;
+	cursor: pointer;
 }
 
 .menu-items {

@@ -6,11 +6,11 @@ import { Pacman } from 'react-pure-loaders';
 
 import swal from '@sweetalert/with-react';
 
-import { MdDateRange, MdPerson, MdDelete } from 'react-icons/md';
+import { MdDateRange, MdPerson } from 'react-icons/md';
+
+import { FaQrcode } from 'react-icons/fa';
 
 import api from '../../../services/api';
-
-import { login, saveData } from '../../../services/auth';
 
 import './styles.css';
 
@@ -18,12 +18,14 @@ import '../../stylesRetangulo/styles.css';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-export default class NewsDelete extends Component {
+import QRCode from 'qrcode.react';
+
+export default class PostQrcode extends Component {
 	state = {
 	    onScreen: false,
 	    enviar: false,
 	    page: 1,
-	    value: 'Digite o título da notícia'
+	    value: 'Digite o título da postagem'
 	};
 
 	componentDidMount = () => {
@@ -32,54 +34,31 @@ export default class NewsDelete extends Component {
 	        this.EffectCubo();
 	    }, 100);
 
-	    this.getNews(this.state.page);
+	    this.getPosts(this.state.page);
 	};
 
 	removeFromState = id => {
 	    this.setState({
-	        docs: this.state.docs.filter(news => news._id !== id)
+	        docs: this.state.docs.filter(post => post._id !== id)
 	    });
 	};
 
-	PopupDeelete = id => {
-	    swal({
-	        title: 'Exluir notícia',
-	        text: 'Tem certeza de que deseja excluir essa notícia?',
-	        icon: 'warning',
-	        buttons: ['cancelar', 'apagar'],
-	        dangerMode: true
-	    }).then(willDelete => {
-	        if (willDelete) {
-	            this.deleteNews(id);
-	        }
-	    });
-	};
-	deleteNews = id => {
-	    const { docs, page } = this.state;
-
-	    if (docs.length === 1) {
-	        this.getNews(page);
-	    }
-
-	    api.post(`/news/remove?newsid=${id}`)
-	        .then(response => {
-	            if (response.status !== 200) {
-	                console.log(response.status);
-	                this.deuErro();
-	                return;
-	            }
-
-	            swal('Sucesso', 'A notícia foi excluida!', 'success');
-	            this.removeFromState(id);
-	        })
-	        .catch(erro => {
-	            this.deuErro();
-	        });
+	downloadQR = id => {
+	    const canvas = document.getElementById('qrcode-muhna-gen');
+	    const pngUrl = canvas
+	        .toDataURL('image/png')
+	        .replace('image/png', 'image/octet-stream');
+	    let downloadLink = document.createElement('a');
+	    downloadLink.href = pngUrl;
+	    downloadLink.download = `qrcode-muhna-${id}.png`;
+	    document.body.appendChild(downloadLink);
+	    downloadLink.click();
+	    document.body.removeChild(downloadLink);
 	};
 
-	getNews = async (page = 1) => {
+	getPosts = async (page = 1) => {
 	    try {
-	        const response = await api.get(`/news/show?page=${page}&limite=5`);
+	        const response = await api.get(`/post/show?page=${page}&limite=5`);
 
 	        const { docs, ...pages } = response.data;
 
@@ -87,6 +66,10 @@ export default class NewsDelete extends Component {
 	    } catch (error) {
 	        this.noInternet();
 	    }
+	};
+
+	noInternet = () => {
+	    swal('Erro na busca', 'você possui conexão com a internet?', 'error');
 	};
 
 	EffectCubo = () => {
@@ -117,120 +100,6 @@ export default class NewsDelete extends Component {
 	    }
 	};
 
-	handleChangeEmail = event => {
-	    this.setState({ email: event.target.value });
-	};
-
-	handleChangePasswd = event => {
-	    this.setState({ password: event.target.value });
-	};
-
-	deuErro = () => {
-	    swal({
-	        title: 'Opa, problemas :|',
-	        content: (
-	            <div id="div-input-popup-main">
-	                <div id="div-input-popup">
-	                    <label>email</label>
-	                    <input
-	                        type="text"
-	                        onChange={this.handleChangeEmail}
-	                    ></input>
-	                    <label>senha</label>
-	                    <input
-	                        type="password"
-	                        onChange={this.handleChangePasswd}
-	                    ></input>
-	                </div>
-	            </div>
-	        ),
-	        text: 'Sua sessão deve ter chagado ao fim, faça login novamente.',
-	        icon: 'warning',
-	        button: {
-	            text: 'Fazer login',
-	            closeModal: false
-	        },
-	        dangerMode: true
-	    }).then(option => {
-	        if (option) {
-	            this.loginEnviar();
-	        }
-	    });
-	};
-
-	loginEnviar = () => {
-	    const { email, password } = this.state;
-
-	    api.post('/auth/authenticate', {
-	        email: email,
-	        password: password
-	    })
-	        .then(response => {
-	            const { token, user } = response.data;
-	            login(token);
-	            saveData(user);
-	            swal.stopLoading();
-	            this.loginFeito();
-	        })
-	        .catch(() => {
-	            this.erroLogin();
-	            swal.stopLoading();
-	        });
-	};
-
-	noticiaEnviada = () => {
-	    swal('Sucesso', 'A notícia foi enviada!', 'success');
-	};
-
-	loginFeito = () => {
-	    swal('Sucesso', 'login feito, sua sessão foi restaurada.', 'success');
-	};
-
-	erroLogin = () => {
-	    swal(
-	        'Error no login',
-	        'sua sessão não foi restaurada. \nAlterações/envios/remoções não serão concluidas enquanto o login não for feito.',
-	        'error'
-	    );
-	};
-
-	noInternet = () => {
-	    swal({
-	        content: (
-	            <div>
-	                <h1>:( deu erro</h1>
-	                <br />
-	                <br />
-	                <p>você está conectado a internet?</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'ok',
-	                value: 1
-	            }
-	        }
-	    });
-	};
-
-	noticiaEnviada = () => {
-	    swal({
-	        content: (
-	            <div>
-	                <h1>:) deu certo</h1>
-	                <br />
-	                <br />
-	                <p>a notícia foi enviada</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo'
-	            }
-	        }
-	    });
-	};
-
 	ArrumaData = data => {
 	    return data.substring(0, 10);
 	};
@@ -243,7 +112,7 @@ export default class NewsDelete extends Component {
 	    } else {
 	        page -= 1;
 	        this.setState({ docs: null });
-	        this.getNews(page);
+	        this.getPosts(page);
 	    }
 	};
 
@@ -255,12 +124,12 @@ export default class NewsDelete extends Component {
 	    } else {
 	        page += 1;
 	        this.setState({ docs: null });
-	        this.getNews(page);
+	        this.getPosts(page);
 	    }
 	};
 
-	editNews = (title, resume, news, newsid) => {
-	    this.setState({ title, resume, news, newsid });
+	editPost = (title, resume, post, postid) => {
+	    this.setState({ title, resume, post, postid });
 	    this.setState({ proxPag: true });
 	};
 
@@ -274,14 +143,14 @@ export default class NewsDelete extends Component {
 
 	    if (value.length > 0) {
 	        this.setState({ searchActive: true });
-	        const response = await api.post(`/news/search?title=${value}`);
+	        const response = await api.post(`/post/search?title=${value}`);
 
 	        const { docs } = response.data;
 
 	        this.setState({ docs });
 	    } else {
 	        this.setState({ searchActive: false });
-	        this.getNews(this.state.page);
+	        this.getPosts(this.state.page);
 	    }
 	};
 
@@ -290,12 +159,12 @@ export default class NewsDelete extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="newsChange-main-News-loading">
+				    <div className="postChange-main-Post-loading">
 				        <Pacman color={'#3f2306'} loading={true} />
 				    </div>
 				) : (
-				    <div className="newsChange-main-News">
-				        <div className="newsChange-sub-div-news">
+				    <div className="postChange-main-Post">
+				        <div className="postChange-sub-div-post">
 				            <div id="inputOne">
 				                <br />
 				                <input
@@ -304,12 +173,11 @@ export default class NewsDelete extends Component {
 				                    onChange={this.changeInput}
 				                    onBlur={() => {
 				                        this.setState({
-				                            value:
-												'Digite o título das notícias'
+				                            value: 'Digite o título da postagem'
 				                        });
 
 				                        setTimeout(() => {
-				                            this.getNews(this.state.page);
+				                            this.getPosts(this.state.page);
 				                            this.setState({
 				                                searchActive: false
 				                            });
@@ -330,17 +198,17 @@ export default class NewsDelete extends Component {
 										<>
 											{!this.state.searchActive ? (
 												<>
-													<div className="div-title-deleteNews">
+													<div className="div-title-deletePost">
 													    <h2>
 															Ou veja todas as
-															notícias
+															postagens
 													    </h2>
 													</div>
 												</>
 											) : null}
 
-											<div className="div-li-excludeNews">
-											    <div className="new-newsChange-sub-div-news-li">
+											<div className="div-li-excludePost">
+											    <div className="new-postChange-sub-div-post-li">
 											        <ReactCSSTransitionGroup
 											            transitionName="example"
 											            transitionEnterTimeout={
@@ -351,16 +219,16 @@ export default class NewsDelete extends Component {
 											            }
 											        >
 											            {this.state.docs.map(
-											                news => (
+											                post => (
 											                    <li
 											                        key={
-											                            news._id
+											                            post._id
 											                        }
 											                    >
 											                        <div className="div-vertical">
 											                            <div>
 											                                <h4>
-											                                    {news.title ||
+											                                    {post.title ||
 																					'"sem titulo"'}
 											                                </h4>
 											                                <div className="icons-horizontal">
@@ -375,9 +243,9 @@ export default class NewsDelete extends Component {
 											                                        }}
 											                                    />
 											                                    <span>
-											                                        {news.createAt
+											                                        {post.createAt
 											                                            ? this.ArrumaData(
-											                                                news.createAt
+											                                                post.createAt
 																						  )
 											                                            : null}
 											                                    </span>
@@ -395,7 +263,7 @@ export default class NewsDelete extends Component {
 											                                    }}
 											                                />
 											                                <span>
-											                                    {news.autor ||
+											                                    {post.autor ||
 																					''}
 											                                </span>
 											                            </div>
@@ -403,16 +271,30 @@ export default class NewsDelete extends Component {
 											                        <div
 											                            className="button-delete"
 											                            onClick={() => {
-											                                this.PopupDeelete(
-											                                    news._id
+											                                this.downloadQR(
+											                                    post._id
 											                                );
 											                            }}
 											                        >
-											                            <MdDelete
+											                            <QRCode
+											                                id="qrcode-muhna-gen"
+											                                value={`#id=${post._id}`}
 											                                size={
-											                                    21
+											                                    500
 											                                }
-											                                color="#b60202"
+											                                level={
+											                                    'H'
+											                                }
+											                                includeMargin={
+											                                    true
+											                                }
+											                            />
+
+											                            <FaQrcode
+											                                size={
+											                                    26
+											                                }
+											                                color="#000"
 											                            />
 											                        </div>
 											                    </li>
@@ -449,7 +331,7 @@ export default class NewsDelete extends Component {
 										</>
 									) : (
 										<>
-											<h2>Nenhuma notícia encontrada</h2>
+											<h2>Nenhuma postagem encontrada</h2>
 										</>
 									)}
 								</>

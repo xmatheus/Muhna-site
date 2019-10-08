@@ -19,6 +19,14 @@ import NewsChange from '../News/newsChange'
 
 import NewsDelete from '../News/newsDelete'
 
+import PostCreate from '../Post/postCreate';
+
+import PostDelete from '../Post/postDelete'
+
+import PostsChange from '../Post/postChange'
+
+import PostQrcode from '../Post/postQrcode'
+
 
 
 export default class BarLeft extends Component {
@@ -37,7 +45,7 @@ export default class BarLeft extends Component {
 	        <div className="barleft-main-div">
 	            {this.state.data ? (
 	                <>
-	                    <div className="barleft-one-div">
+	                    <div className="barleft-one-div" onClick={()=>{this.props.component(<AboutPage/>)}}  >
 	                        <img  alt="logo MuHNA" id="img-div" src={logo}></img>
 	                        <p id="p-hello-visit">
 	                            {'Olá, ' + this.state.data.name + '.'}
@@ -142,7 +150,8 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+
+	                                            this.props.component(<PostCreate/>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -155,7 +164,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+	                                            this.props.component(<PostsChange/>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -167,7 +176,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+	                                            this.props.component(<PostDelete/>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
@@ -180,7 +189,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+	                                            this.props.component(<PostQrcode/>);
 	                                        }}
 	                                    >
 	                                        <FaQrcode
