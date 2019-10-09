@@ -100,7 +100,7 @@ export default class PostsCreateChanged extends Component {
 	};
 
 	postagemAlterada = () => {
-	    swal('Sucesso', 'A notícia foi alterada!', 'success');
+	    swal('Sucesso', 'A postagem foi alterada!', 'success');
 	};
 
 	loginFeito = () => {
@@ -211,7 +211,7 @@ export default class PostsCreateChanged extends Component {
 				            </div>
 				        ) : (
 				            <div className="proxPage">
-				                <h1>Adicionar mídia a notícia</h1>
+				                <h1>Adicionar mídia a postagem</h1>
 				                <UploadFiles
 				                    postid={this.props.postid}
 				                ></UploadFiles>
