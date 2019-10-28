@@ -18,6 +18,8 @@ import Modal from 'react-modal';
 
 import UploadFiles from '../uploadFiles';
 
+import UploadFilesGallery from '../../Gallery/uploadFiles';
+
 import Gallery from '../../Gallery';
 
 export default class NewsCreate extends Component {
@@ -25,7 +27,8 @@ export default class NewsCreate extends Component {
 	    onScreen: false,
 	    enviar: false,
 	    proxPag: false,
-	    showModal: false
+	    showModal: false,
+	    showModalUpload: false
 	};
 
 	componentDidMount = () => {
@@ -208,6 +211,14 @@ export default class NewsCreate extends Component {
 	    this.setState({ showModal: false });
 	};
 
+	handleOpenModalUpload = () => {
+	    this.setState({ showModalUpload: true });
+	};
+
+	handleCloseModalUpload = () => {
+	    this.setState({ showModalUpload: false });
+	};
+
 	render() {
 	    return (
 			<>
@@ -248,7 +259,8 @@ export default class NewsCreate extends Component {
 				                        onChange={this.handleChangeResume}
 				                    />
 				                </form>
-				                <div className="button-div">
+				                <div className="button-div-modal">
+				                    {/* parte da galeira => toda a galeira e o upload */}
 				                    <button onClick={this.handleOpenModal}>
 										Galeria
 				                    </button>
@@ -259,6 +271,19 @@ export default class NewsCreate extends Component {
 				                        <Gallery
 				                            closeModal={this.handleCloseModal}
 				                        />
+				                    </Modal>
+
+				                    <button
+				                        onClick={this.handleOpenModalUpload}
+				                    >
+										Upload galeria
+				                    </button>
+
+				                    <Modal
+				                        isOpen={this.state.showModalUpload}
+				                        className="Modal-Div"
+				                    >
+				                        <UploadFilesGallery   closeModal={this.handleCloseModalUpload}/>
 				                    </Modal>
 				                </div>
 				                <div className="editor-text">

@@ -1,0 +1,14 @@
+#deleteImage,
+#copyImage {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+}
+#deleteImage:hover,
+#copyImage:hover {
+	cursor: pointer;
+}
+
+.Empty-gallery {
+	animation: fade 250ms linear;
+}

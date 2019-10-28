@@ -4,126 +4,214 @@ import React, { Component } from 'react';
 
 import Gallery from 'react-grid-gallery';
 
-const imagens = [
-    {
-        src: 'https://c5.staticflickr.com/9/8768/28941110956_b05ab588c1_b.jpg',
-        thumbnail:
-			'https://c5.staticflickr.com/9/8768/28941110956_b05ab588c1_n.jpg',
+import swal from '@sweetalert/with-react';
 
-        caption: '8H (gratisography.com)'
-    },
-    {
-        src: 'https://c3.staticflickr.com/9/8583/28354353794_9f2d08d8c0_b.jpg',
-        thumbnail:
-			'https://c3.staticflickr.com/9/8583/28354353794_9f2d08d8c0_n.jpg',
+import Lottie from 'react-lottie';
 
-        caption: '286H (gratisography.com)'
-    },
-    {
-        src: 'https://c7.staticflickr.com/9/8569/28941134686_d57273d933_b.jpg',
-        thumbnail:
-			'https://c7.staticflickr.com/9/8569/28941134686_d57273d933_n.jpg',
+import { MdDelete } from 'react-icons/md';
 
-        caption: '315H (gratisography.com)'
-    },
-    {
-        src: 'https://c6.staticflickr.com/9/8342/28897193381_800db6419e_b.jpg',
-        thumbnail:
-			'https://c6.staticflickr.com/9/8342/28897193381_800db6419e_n.jpg',
+import { IoMdClipboard } from 'react-icons/io';
 
-        caption: '201H (gratisography.com)'
-    },
-    {
-        src: 'https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_b.jpg',
-        thumbnail:
-			'https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_n.jpg',
+import api from '../../../services/api';
 
-        caption: 'Big Ben (Tom Eversley - isorepublic.com)'
-    },
-    {
-        src: 'https://c1.staticflickr.com/9/8785/28687743710_870813dfde_h.jpg',
-        thumbnail:
-			'https://c1.staticflickr.com/9/8785/28687743710_3580fcb5f0_n.jpg',
-
-        caption: 'Red Zone - Paris (Tom Eversley - isorepublic.com)'
-    },
-    {
-        src: 'https://c6.staticflickr.com/9/8520/28357073053_cafcb3da6f_b.jpg',
-        thumbnail:
-			'https://c6.staticflickr.com/9/8520/28357073053_cafcb3da6f_n.jpg',
-
-        caption: 'Wood Glass (Tom Eversley - isorepublic.com)'
-    },
-    {
-        src: 'https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg',
-        thumbnail:
-			'https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_n.jpg',
-
-        caption: 'Flower Interior Macro (Tom Eversley - isorepublic.com)'
-    }
-];
-
+import './styles.css';
 export default class GalleryComponent extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            images: imagens,
-            currentImage: 0
+            images: null,
+            currentImage: 0,
+            loading: true
         };
 
         this.onCurrentImageChange = this.onCurrentImageChange.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
     }
 
-    onCurrentImageChange(index) {
-        this.setState({ currentImage: index });
-    }
+	componentDidMount = () => {
+	    setTimeout(() => {
+	        this.loadImagens();
+	    }, 600);
+	};
 
-    deleteImage() {
-        if (
-            window.confirm(
-                `Are you sure you want to delete image number ${this.state.currentImage}?`
-            )
-        ) {
-            var images = this.state.images.slice();
-            images.splice(this.state.currentImage, 1);
-            this.setState({
-                images: images
-            });
-        }
-    }
+	onCurrentImageChange(index) {
+	    this.setState({ currentImage: index });
+	}
 
-    render() {
-        return (
-            <div
-                style={{
-                    display: 'block',
-                    minHeight: '1px',
-                    width: '100%',
-                    overflow: 'auto',
-                    marginLeft: '10px',
-                    marginRight: '10px'
-                }}
-            >
-                <div
-                    style={{
-                        padding: '2px',
-                        color: '#666'
-                    }}
-                ></div>
-                <Gallery
-                    images={this.state.images}
-                    enableLightbox={true}
-                    enableImageSelection={false}
-                    currentImageWillChange={this.onCurrentImageChange}
-                    customControls={[
-                        <button key="deleteImage" onClick={this.deleteImage}>
-							Delete Image
-                        </button>
-                    ]}
-                />
-            </div>
-        );
-    }
+	PopupDeelete = id => {
+	    swal({
+	        title: 'Exluir Imagem?',
+	        icon: 'warning',
+	        buttons: ['cancelar', 'excluir'],
+	        dangerMode: true
+	    }).then(willDelete => {
+	        if (willDelete) {
+	            this.deleteImage();
+	        }
+	    });
+	};
+
+	deleteImage = async () => {
+	    try {
+	        const images = this.state.images.slice();
+	        const { fileid } = images[this.state.currentImage];
+	        await api.delete(`/galery?idfile=${fileid}`);
+	        images.splice(this.state.currentImage, 1);
+	        this.setState({
+	            images: images
+	        });
+	        swal('Sucesso', 'A imagem foi excluida!', 'success');
+	    } catch (error) {
+	        swal('Erro', 'A imagem não excluida!', 'error');
+	    }
+	};
+
+	loadImagens = async (page = 1) => {
+	    try {
+	        const response = await api.get(`/galery?page=${page}`);
+
+	        const { docs, ...pages } = response.data;
+
+	        if (docs) {
+	            const images = docs.map(img => {
+	                return {
+	                    src: `${api.defaults.baseURL}/galery/image?filename=${img.filename}`,
+	                    thumbnail: `${api.defaults.baseURL}/galery/image?filename=${img.filename}`,
+	                    caption: img.originalname.split('.')[0],
+	                    fileid: img.fileid,
+	                    filename: img.filename
+	                };
+	            });
+	            console.log(images);
+	            this.setState({ images, pages, page });
+	        }
+	        this.setState({ loading: false });
+	    } catch (error) {
+	        this.setState({ loading: false });
+	        console.log(error);
+	    }
+	};
+
+	copyToClipboard = () => {
+	    const images = this.state.images.slice();
+	    const { filename } = images[this.state.currentImage];
+	    navigator.clipboard.writeText(
+	        `${api.defaults.baseURL}/galery/image?filename=${filename}`
+	    );
+	    swal(
+	        'Copiado',
+	        'O link está na sua area de transferência(ctrl+v)',
+	        'success'
+	    );
+	    setTimeout(() => {
+	        swal.close();
+	    }, 4000);
+	};
+
+	render() {
+	    const defaultOptions = {
+	        loop: true,
+	        autoplay: true,
+	        animationData: require('./../../../../assets/andando.json'),
+	        rendererSettings: {
+	            preserveAspectRatio: 'xMidYMid slice'
+	        },
+	        resizeMode: true
+	    };
+
+	    const defaultOptionsBoxEmpty = {
+	        loop: true,
+	        autoplay: true,
+	        animationData: require('./../../../../assets/caixavazia.json'),
+	        rendererSettings: {
+	            preserveAspectRatio: 'xMidYMid slice'
+	        },
+	        resizeMode: true
+	    };
+	    return (
+	        <div
+	            style={{
+	                display: 'block',
+	                minHeight: '1px',
+	                width: '100%',
+	                overflow: 'auto',
+	                marginLeft: '10px',
+	                marginRight: '10px'
+	            }}
+	        >
+	            {this.state.loading ? (
+	                <div style={{ marginTop: '60px' }}>
+	                    <h1 style={{ color: '#fff', textAlign: 'center' }}>
+							Buscando imagens
+	                    </h1>
+
+	                    <Lottie
+	                        options={defaultOptions}
+	                        height={'100%'}
+	                        width={400}
+	                        isStopped={false}
+	                        isPaused={false}
+	                    />
+	                </div>
+	            ) : (
+					<>
+						{this.state.images.length > 0 ? (
+						    <Gallery
+						        images={this.state.images}
+						        enableLightbox={true}
+						        enableImageSelection={false}
+						        currentImageWillChange={
+						            this.onCurrentImageChange
+						        }
+						        customControls={[
+						            <div id="deleteImage">
+						                <MdDelete
+						                    size={30}
+						                    color="#b60202"
+						                    onClick={() => {
+						                        this.PopupDeelete();
+						                    }}
+						                />
+						            </div>,
+						            <div
+						                id="copyImage"
+						                onClick={() => {
+						                    this.copyToClipboard();
+						                }}
+						            >
+						                <IoMdClipboard
+						                    size={30}
+						                    color="#fafafa"
+						                />
+						            </div>
+						        ]}
+						        imageCountSeparator=" de "
+						    />
+						) : (
+						    <div className="Empty-gallery">
+						        <h3
+						            style={{
+						                textAlign: 'center',
+						                color: '#fafafa',
+						                fontSize: '30px'
+						            }}
+						        >
+									Galeria vazia :|
+						        </h3>
+
+						        <Lottie
+						            options={defaultOptionsBoxEmpty}
+						            height={'70%'}
+						            width={400}
+						            isStopped={false}
+						            isPaused={false}
+						        />
+						    </div>
+						)}
+					</>
+	            )}
+	        </div>
+	    );
+	}
 }
