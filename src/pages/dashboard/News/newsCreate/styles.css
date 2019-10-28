@@ -195,6 +195,12 @@ body {
 	border: 1px solid rgb(51, 30, 4);
 }
 
+.Modal-Div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 @keyframes rightToLeft {
 	from {
 		opacity: 1;

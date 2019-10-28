@@ -14,13 +14,18 @@ import { login, saveData } from '../../../services/auth';
 
 import swal from '@sweetalert/with-react';
 
+import Modal from 'react-modal';
+
 import UploadFiles from '../uploadFiles';
+
+import Gallery from '../../Gallery';
 
 export default class NewsCreate extends Component {
 	state = {
 	    onScreen: false,
 	    enviar: false,
-	    proxPag: false
+	    proxPag: false,
+	    showModal: false
 	};
 
 	componentDidMount = () => {
@@ -195,9 +200,25 @@ export default class NewsCreate extends Component {
 	    this.setState({ proxPag: false });
 	};
 
+	handleOpenModal = () => {
+	    this.setState({ showModal: true });
+	};
+
+	handleCloseModal = () => {
+	    this.setState({ showModal: false });
+	};
+
 	render() {
 	    return (
 			<>
+				<link
+				    rel="stylesheet"
+				    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+				/>
+				<link
+				    rel="stylesheet"
+				    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+				/>
 				{!this.state.onScreen ? (
 				    <div className="main-News-loading">
 				        <Pacman color={'#3f2306'} loading={true} />
@@ -227,10 +248,24 @@ export default class NewsCreate extends Component {
 				                        onChange={this.handleChangeResume}
 				                    />
 				                </form>
+				                <div className="button-div">
+				                    <button onClick={this.handleOpenModal}>
+										Galeria
+				                    </button>
+				                    <Modal
+				                        isOpen={this.state.showModal}
+				                        className="Modal-Div"
+				                    >
+				                        <Gallery
+				                            closeModal={this.handleCloseModal}
+				                        />
+				                    </Modal>
+				                </div>
 				                <div className="editor-text">
 				                    <EditorText
 				                        onChange={this.handleChangeNews}
 				                        html={this.props.news}
+				                        placeholder="Digite a notícia aqui :)"
 				                    ></EditorText>
 				                </div>
 				                <div className="button-div">

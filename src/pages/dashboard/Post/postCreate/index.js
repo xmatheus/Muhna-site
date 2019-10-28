@@ -229,8 +229,8 @@ export default class PostCreate extends Component {
 				                </form>
 				                <div className="editor-text">
 				                    <EditorText
-										onChange={this.handleChangePosts}
-										html={'<p>Escreva o texto da <strong>postagem</strong> aqui 😀</p>'}
+				                        onChange={this.handleChangePosts}
+				                        placeholder="Digite a postagem aqui :)"
 				                    ></EditorText>
 				                </div>
 				                <div className="button-div">

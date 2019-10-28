@@ -1,0 +1,21 @@
+.gallery-main-div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(51, 30, 4);
+	height: 90vh;
+	width: 75vw;
+	border-radius: 20px;
+	margin-top: 20px;
+	padding-bottom: 40px;
+}
+
+#gallery-main-button-close {
+	margin-top: 5px;
+	padding: 7px;
+	background-color: blueviolet;
+	border-radius: 4px;
+	color: #fafafa;
+	font-size: 20px;
+}

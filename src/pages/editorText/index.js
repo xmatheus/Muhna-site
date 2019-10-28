@@ -8,8 +8,10 @@ import htmlToDraft from 'html-to-draftjs';
 
 import './styles.css';
 
-const defaultText =
-	'<p>Escreva o texto da <strong>notícia</strong> aqui 😀</p>';
+// const defaultText =
+// 	'<p>Escreva o texto da <strong>notícia</strong> aqui 😀</p>';
+
+const defaultText = ' ';
 export default class EditorText extends Component {
     constructor(props) {
         super(props);
@@ -40,9 +42,11 @@ export default class EditorText extends Component {
 
 	render() {
 	    const { editorState } = this.state;
+
 	    return (
 	        <div className="editor-main-div">
 	            <Editor
+	                placeholder={this.props.placeholder}
 	                editorState={editorState}
 	                wrapperClassName="demo-wrapper"
 	                editorClassName="demo-editor"
