@@ -159,7 +159,27 @@ export default class NewsCreate extends Component {
 	    this.setState({ enviar: true });
 
 	    setTimeout(() => {
-	        const { title, resume, news } = this.state;
+	        let { title, resume, news } = this.state;
+
+	        if (
+	            title === undefined ||
+				title === undefined ||
+				title.length === 0
+	        ) {
+	            title = 'Notícia do MUHNA ';
+	        }
+
+	        if (
+	            resume === undefined ||
+				resume === undefined ||
+				resume.length === 0
+	        ) {
+	            resume = 'Resumo do MUHNA ';
+	        }
+
+	        if (news === undefined || news === undefined || news.length === 0) {
+	            news = '<h2>Alguém se esqueceu do corpo da notícia :| </h2>';
+	        }
 	        api.post('/news/create', {
 	            title,
 	            resume,
@@ -283,7 +303,11 @@ export default class NewsCreate extends Component {
 				                        isOpen={this.state.showModalUpload}
 				                        className="Modal-Div"
 				                    >
-				                        <UploadFilesGallery   closeModal={this.handleCloseModalUpload}/>
+				                        <UploadFilesGallery
+				                            closeModal={
+				                                this.handleCloseModalUpload
+				                            }
+				                        />
 				                    </Modal>
 				                </div>
 				                <div className="editor-text">

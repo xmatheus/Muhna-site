@@ -22,7 +22,8 @@ export default class GalleryComponent extends Component {
         this.state = {
             images: null,
             currentImage: 0,
-            loading: true
+            loading: true,
+            viewbutton: false
         };
 
         this.onCurrentImageChange = this.onCurrentImageChange.bind(this);
@@ -68,10 +69,17 @@ export default class GalleryComponent extends Component {
 	};
 
 	loadImagens = async (page = 1) => {
+	    this.setState({ loading: true });
+	    this.setState({ viewbutton: false });
 	    try {
-	        const response = await api.get(`/galery?page=${page}`);
+	        const response = await api.get(`/galery?page=${page}&limite=${20}`);
 
 	        const { docs, ...pages } = response.data;
+
+	        // para os botoes de back e prox aparecerem depois que as imagens carregarem
+	        setTimeout(() => {
+	            this.setState({ viewbutton: true });
+	        }, 1300);
 
 	        if (docs) {
 	            const images = docs.map(img => {
@@ -86,7 +94,9 @@ export default class GalleryComponent extends Component {
 	            console.log(images);
 	            this.setState({ images, pages, page });
 	        }
-	        this.setState({ loading: false });
+	        setTimeout(() => {
+	            this.setState({ loading: false });
+	        }, 1000);
 	    } catch (error) {
 	        this.setState({ loading: false });
 	        console.log(error);
@@ -101,12 +111,36 @@ export default class GalleryComponent extends Component {
 	    );
 	    swal(
 	        'Copiado',
-	        'O link está na sua area de transferência(ctrl+v)',
+	        'O link está na sua área de transferência(ctrl+v)',
 	        'success'
 	    );
 	    setTimeout(() => {
 	        swal.close();
 	    }, 4000);
+	};
+
+	back = () => {
+	    let { page } = this.state;
+
+	    if (page === 1) {
+	        return;
+	    } else {
+	        page -= 1;
+	        this.setState({ docs: null });
+	        this.loadImagens(page);
+	    }
+	};
+
+	prox = () => {
+	    let { pages, page } = this.state;
+
+	    if (page === pages.pages) {
+	        return;
+	    } else {
+	        page += 1;
+	        this.setState({ docs: null });
+	        this.loadImagens(page);
+	    }
 	};
 
 	render() {
@@ -129,87 +163,114 @@ export default class GalleryComponent extends Component {
 	        },
 	        resizeMode: true
 	    };
+
+	    const { page, pages } = this.state;
 	    return (
-	        <div
-	            style={{
-	                display: 'block',
-	                minHeight: '1px',
-	                width: '100%',
-	                overflow: 'auto',
-	                marginLeft: '10px',
-	                marginRight: '10px'
-	            }}
-	        >
-	            {this.state.loading ? (
-	                <div style={{ marginTop: '60px' }}>
-	                    <h1 style={{ color: '#fff', textAlign: 'center' }}>
-							Buscando imagens
-	                    </h1>
+	        <div className="gallery-main-div">
+	            <div
+	                style={{
+	                    display: 'block',
+	                    minHeight: '1px',
+	                    width: '100%',
+	                    overflow: 'auto',
+	                    marginLeft: '10px',
+	                    marginRight: '10px'
+	                }}
+	            >
+	                {this.state.loading ? (
+	                    <div style={{ marginTop: '60px' }}>
+	                        <h1 style={{ color: '#fff', textAlign: 'center' }}>
+								Buscando imagens
+	                        </h1>
 
-	                    <Lottie
-	                        options={defaultOptions}
-	                        height={'100%'}
-	                        width={400}
-	                        isStopped={false}
-	                        isPaused={false}
-	                    />
+	                        <Lottie
+	                            options={defaultOptions}
+	                            height={'100%'}
+	                            width={400}
+	                            isStopped={false}
+	                            isPaused={false}
+	                        />
+	                    </div>
+	                ) : (
+						<>
+							{this.state.images.length > 0 ? (
+								<>
+									<Gallery
+									    images={this.state.images}
+									    enableLightbox={true}
+									    enableImageSelection={false}
+									    currentImageWillChange={
+									        this.onCurrentImageChange
+									    }
+									    customControls={[
+									        <div id="deleteImage">
+									            <MdDelete
+									                size={30}
+									                color="#b60202"
+									                onClick={() => {
+									                    this.PopupDeelete();
+									                }}
+									            />
+									        </div>,
+									        <div
+									            id="copyImage"
+									            onClick={() => {
+									                this.copyToClipboard();
+									            }}
+									        >
+									            <IoMdClipboard
+									                size={30}
+									                color="#fafafa"
+									            />
+									        </div>
+									    ]}
+									    imageCountSeparator=" de "
+									/>
+								</>
+							) : (
+							    <div className="Empty-gallery">
+							        <h3
+							            style={{
+							                textAlign: 'center',
+							                color: '#fafafa',
+							                fontSize: '30px'
+							            }}
+							        >
+										Galeria vazia :|
+							        </h3>
+
+							        <Lottie
+							            options={defaultOptionsBoxEmpty}
+							            height={'70%'}
+							            width={400}
+							            isStopped={false}
+							            isPaused={false}
+							        />
+							    </div>
+							)}
+						</>
+	                )}
+	            </div>
+
+	            {this.state.viewbutton && (
+	                <div className="gallery-button-proxAndback">
+	                    <button
+	                        id="gallery-prox-back"
+	                        disabled={page === 1 || this.state.searchActive}
+	                        onClick={this.back}
+	                    >
+							Voltar
+	                    </button>
+	                    <button
+	                        id="gallery-prox-back"
+	                        disabled={
+	                            page === pages.pages || this.state.searchActive
+	                        }
+	                        onClick={this.prox}
+	                    >
+							Próximo
+	                    </button>
 	                </div>
-	            ) : (
-					<>
-						{this.state.images.length > 0 ? (
-						    <Gallery
-						        images={this.state.images}
-						        enableLightbox={true}
-						        enableImageSelection={false}
-						        currentImageWillChange={
-						            this.onCurrentImageChange
-						        }
-						        customControls={[
-						            <div id="deleteImage">
-						                <MdDelete
-						                    size={30}
-						                    color="#b60202"
-						                    onClick={() => {
-						                        this.PopupDeelete();
-						                    }}
-						                />
-						            </div>,
-						            <div
-						                id="copyImage"
-						                onClick={() => {
-						                    this.copyToClipboard();
-						                }}
-						            >
-						                <IoMdClipboard
-						                    size={30}
-						                    color="#fafafa"
-						                />
-						            </div>
-						        ]}
-						        imageCountSeparator=" de "
-						    />
-						) : (
-						    <div className="Empty-gallery">
-						        <h3
-						            style={{
-						                textAlign: 'center',
-						                color: '#fafafa',
-						                fontSize: '30px'
-						            }}
-						        >
-									Galeria vazia :|
-						        </h3>
-
-						        <Lottie
-						            options={defaultOptionsBoxEmpty}
-						            height={'70%'}
-						            width={400}
-						            isStopped={false}
-						            isPaused={false}
-						        />
-						    </div>
-						)}
-					</>
 	            )}
 	        </div>
 	    );

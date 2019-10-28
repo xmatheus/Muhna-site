@@ -1,3 +1,7 @@
+.gallery-main-div {
+	overflow: hidden;
+}
+
 #deleteImage,
 #copyImage {
 	display: flex;
@@ -11,4 +15,45 @@
 
 .Empty-gallery {
 	animation: fade 250ms linear;
+}
+
+#gallery-prox-back {
+	font-weight: bold;
+	font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+#gallery-prox-back:hover {
+	border-color: #000;
+	background-color: #fff;
+	color: #000;
+	cursor: pointer;
+}
+
+.gallery-button-proxAndback {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.gallery-button-proxAndback button {
+	padding: 5px;
+	margin-top: 5px;
+	padding: 5px;
+	background-color: rgba(255, 255, 255, 0);
+	border: 2px solid #fafafa;
+	border-radius: 5px;
+	color: #fafafa;
+	cursor: pointer;
+	font-size: 15px;
+}
+.gallery-button-proxAndback button[disabled] {
+	opacity: 0;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.gallery-button-proxAndback button:hover {
+	background-color: #087917;
+	color: #fff;
 }
