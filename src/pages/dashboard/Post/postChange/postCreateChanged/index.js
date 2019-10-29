@@ -14,6 +14,8 @@ import swal from '@sweetalert/with-react';
 import UploadFiles from '../../uploadFiles';
 
 import { login, saveData } from '../../../../services/auth';
+
+import AllGallery from '../../../AllGallery';
 export default class PostsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -184,6 +186,8 @@ export default class PostsCreateChanged extends Component {
 				                        onChange={this.handleChangeTitle}
 				                    />
 				                </form>
+
+				                <AllGallery />
 				                <div className="editor-text">
 				                    <EditorText
 				                        onChange={this.handleChangePosts}

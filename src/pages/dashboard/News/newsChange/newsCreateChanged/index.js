@@ -14,6 +14,8 @@ import swal from '@sweetalert/with-react';
 import UploadFiles from '../../uploadFiles';
 
 import { login, saveData } from '../../../../services/auth';
+
+import AllGallery from '../../../AllGallery';
 export default class NewsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -125,6 +127,26 @@ export default class NewsCreateChanged extends Component {
 
 	    setTimeout(() => {
 	        const { title, resume, news } = this.state;
+
+	        if (
+	            title === undefined ||
+				title === undefined ||
+				title.length === 0
+	        ) {
+	            title = 'Notícia do MUHNA ';
+	        }
+
+	        if (
+	            resume === undefined ||
+				resume === undefined ||
+				resume.length === 0
+	        ) {
+	            resume = 'Resumo do MUHNA ';
+	        }
+
+	        if (news === undefined || news === undefined || news.length === 0) {
+	            news = '<h2>Alguém se esqueceu do corpo da notícia :| </h2>';
+	        }
 	        api.put(`news/update?newsid=${this.props.newsid}`, {
 	            title,
 	            resume,
@@ -200,6 +222,7 @@ export default class NewsCreateChanged extends Component {
 				                        onChange={this.handleChangeResume}
 				                    />
 				                </form>
+				                <AllGallery />
 				                <div className="editor-text">
 				                    <EditorText
 				                        onChange={this.handleChangeNews}

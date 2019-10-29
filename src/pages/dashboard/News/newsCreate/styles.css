@@ -87,27 +87,6 @@ body {
 	padding-top: 60px;
 	height: 30%;
 }
-.button-div-modal {
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-}
-.button-div-modal button {
-	border: 0px;
-	border-radius: 5px;
-	padding: 10px;
-	background-color: rgb(95, 60, 16);
-	color: #fff;
-	text-align: center;
-	text-decoration: none;
-	font-weight: bold;
-	font-size: 14px;
-	margin-right: 20px;
-}
-.button-div-modal button:hover {
-	cursor: pointer;
-	background-color: rgb(51, 30, 4);
-}
 
 #pacmanLoad {
 	display: flex;
@@ -217,14 +196,6 @@ body {
 	border: 1px solid rgb(51, 30, 4);
 }
 
-.Modal-Div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	animation: caiModal 550ms ease-out;
-	animation-fill-mode: backwards;
-}
-
 @keyframes rightToLeft {
 	from {
 		opacity: 1;
@@ -246,18 +217,6 @@ body {
 	to {
 		opacity: 1;
 		transform: translateX(0);
-	}
-}
-
-@keyframes caiModal {
-	from {
-		opacity: 0;
-		transform: translateY(-100%);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
 	}
 }
 

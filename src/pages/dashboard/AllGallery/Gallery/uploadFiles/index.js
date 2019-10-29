@@ -13,7 +13,7 @@ import { Content, Button } from './styles';
 */
 import Upload from './upload';
 
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
 export default class UploadFilesGallery extends Component {
 	state = {

@@ -10,8 +10,6 @@ import { MdDateRange, MdPerson } from 'react-icons/md';
 
 import api from '../../../services/api';
 
-import { logout } from '../../../services/auth';
-
 import './styles.css';
 
 import '../../stylesRetangulo/styles.css';
@@ -77,50 +75,6 @@ export default class NewsChange extends Component {
 	    }
 	};
 
-	sessaoExpirada = () => {
-	    logout();
-	    swal({
-	        content: (
-	            <div>
-	                <h1>Opa, sua sessão expirou.</h1>
-	                <br />
-	                <br />
-	                <p>faça login novamente!</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo',
-	                value: 1
-	            }
-	        }
-	    }).then(value => {
-	        this.props.history.push('/');
-	    });
-	};
-
-	deuErro = () => {
-	    logout();
-	    swal({
-	        content: (
-	            <div>
-	                <h1>:( deu erro</h1>
-	                <br />
-	                <br />
-	                <p>tente fazer login novamente</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo',
-	                value: 1
-	            }
-	        }
-	    }).then(value => {
-	        this.props.history.push('/');
-	    });
-	};
-
 	noInternet = () => {
 	    swal({
 	        title: 'Opa, problemas :|',
@@ -128,24 +82,6 @@ export default class NewsChange extends Component {
 	        icon: 'warning',
 	        buttons: 'fechar',
 	        dangerMode: true
-	    });
-	};
-
-	noticiaEnviada = () => {
-	    swal({
-	        content: (
-	            <div>
-	                <h1>:) deu certo</h1>
-	                <br />
-	                <br />
-	                <p>a notícia foi enviada</p>
-	            </div>
-	        ),
-	        buttons: {
-	            catch: {
-	                text: 'certo'
-	            }
-	        }
 	    });
 	};
 

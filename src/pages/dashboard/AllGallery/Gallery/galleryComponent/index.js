@@ -12,9 +12,10 @@ import { MdDelete } from 'react-icons/md';
 
 import { IoMdClipboard } from 'react-icons/io';
 
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
 import './styles.css';
+
 export default class GalleryComponent extends Component {
     constructor(props) {
         super(props);
@@ -99,8 +100,19 @@ export default class GalleryComponent extends Component {
 	        }, 1000);
 	    } catch (error) {
 	        this.setState({ loading: false });
-	        console.log(error);
+	        this.noInternet();
+	        console.log(error.status);
 	    }
+	};
+
+	noInternet = () => {
+	    swal({
+	        title: 'Opa, problemas :|',
+	        text: 'Sua internet caiu?',
+	        icon: 'warning',
+	        buttons: 'fechar',
+	        dangerMode: true
+	    });
 	};
 
 	copyToClipboard = () => {
@@ -147,7 +159,7 @@ export default class GalleryComponent extends Component {
 	    const defaultOptions = {
 	        loop: true,
 	        autoplay: true,
-	        animationData: require('./../../../../assets/andando.json'),
+	        animationData: require('./../../../../../assets/andando.json'),
 	        rendererSettings: {
 	            preserveAspectRatio: 'xMidYMid slice'
 	        },
@@ -157,7 +169,7 @@ export default class GalleryComponent extends Component {
 	    const defaultOptionsBoxEmpty = {
 	        loop: true,
 	        autoplay: true,
-	        animationData: require('./../../../../assets/caixavazia.json'),
+	        animationData: require('./../../../../../assets/caixavazia.json'),
 	        rendererSettings: {
 	            preserveAspectRatio: 'xMidYMid slice'
 	        },
@@ -193,7 +205,8 @@ export default class GalleryComponent extends Component {
 	                    </div>
 	                ) : (
 						<>
-							{this.state.images.length > 0 ? (
+							{this.state.images !== null &&
+							this.state.images.length > 0 ? (
 								<>
 									<Gallery
 									    images={this.state.images}
@@ -227,27 +240,27 @@ export default class GalleryComponent extends Component {
 									    imageCountSeparator=" de "
 									/>
 								</>
-							) : (
-							    <div className="Empty-gallery">
-							        <h3
-							            style={{
-							                textAlign: 'center',
-							                color: '#fafafa',
-							                fontSize: '30px'
-							            }}
-							        >
+							    ) : (
+							        <div className="Empty-gallery">
+							            <h3
+							                style={{
+							                    textAlign: 'center',
+							                    color: '#fafafa',
+							                    fontSize: '30px'
+							                }}
+							            >
 										Galeria vazia :|
-							        </h3>
+							            </h3>
 
-							        <Lottie
-							            options={defaultOptionsBoxEmpty}
-							            height={'70%'}
-							            width={400}
-							            isStopped={false}
-							            isPaused={false}
-							        />
-							    </div>
-							)}
+							            <Lottie
+							                options={defaultOptionsBoxEmpty}
+							                height={'70%'}
+							                width={400}
+							                isStopped={false}
+							                isPaused={false}
+							            />
+							        </div>
+							    )}
 						</>
 	                )}
 	            </div>
