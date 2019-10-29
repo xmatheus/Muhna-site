@@ -30,13 +30,43 @@ export default class AllGallery extends Component {
 	    this.setState({ showModalUpload: false });
 	};
 
+	addEfeitoUpModal = () => {
+	    const formLogin = document.querySelector('.Modal-Div');
+	    formLogin.classList.add('effectUp');
+	    // document.querySelector('.login').style.border = '1px solid red';
+	    const formError = document.querySelector('.effectUp');
+	    if (formError) {
+	        formError.addEventListener('animationend', event => {
+	            if (event.animationName === 'upModal') {
+	                this.handleCloseModal();
+	                formError.classList.remove('effectUp');
+	            }
+	        });
+	    }
+	};
+
+	addEfeitoUpModalUpload = () => {
+	    const formLogin = document.querySelector('.Modal-Div');
+	    formLogin.classList.add('effectUp');
+	    // document.querySelector('.login').style.border = '1px solid red';
+	    const formError = document.querySelector('.effectUp');
+	    if (formError) {
+	        formError.addEventListener('animationend', event => {
+	            if (event.animationName === 'upModal') {
+	                this.handleCloseModalUpload();
+	                formError.classList.remove('effectUp');
+	            }
+	        });
+	    }
+	};
+
 	render() {
 	    return (
 	        <div className="button-div-modal">
 	            {/* parte da galeira => toda a galeira e o upload */}
 	            <button onClick={this.handleOpenModal}>Galeria</button>
 	            <Modal isOpen={this.state.showModal} className="Modal-Div">
-	                <Gallery closeModal={this.handleCloseModal} />
+	                <Gallery closeModal={this.addEfeitoUpModal} />
 	            </Modal>
 
 	            <button onClick={this.handleOpenModalUpload}>
@@ -48,7 +78,7 @@ export default class AllGallery extends Component {
 	                className="Modal-Div"
 	            >
 	                <UploadFilesGallery
-	                    closeModal={this.handleCloseModalUpload}
+	                    closeModal={this.addEfeitoUpModalUpload}
 	                />
 	            </Modal>
 	        </div>

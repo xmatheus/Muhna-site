@@ -18,6 +18,8 @@ import AllGallery from '../../AllGallery';
 
 import UploadFiles from '../uploadFiles';
 
+import LinkYtUpload from '../LinkYtUpload';
+
 export default class NewsCreate extends Component {
 	state = {
 	    onScreen: false,
@@ -285,12 +287,17 @@ export default class NewsCreate extends Component {
 				                </div>
 				            </div>
 				        ) : (
-				            <div className="proxPage">
+				            <div className="proxPage-Newscreate">
 				                <h1>Adicionar mídia a notícia</h1>
 				                <UploadFiles
 				                    newsid={this.state.newsid}
 				                ></UploadFiles>
-				                <button onClick={this.backPag}>
+				                <LinkYtUpload newsid={this.state.newsid}/>
+
+				                <button
+				                    onClick={this.backPag}
+				                    id="proxPage-Newscreate"
+				                >
 									Finalizar
 				                </button>
 				            </div>

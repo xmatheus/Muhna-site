@@ -23,7 +23,7 @@
 }
 
 .sub-div-post,
-.proxPage {
+.proxPage-PostCreate {
 	display: flex;
 	flex-direction: column;
 	border: 2px solid rgba(3, 3, 3, 0.733);
@@ -133,7 +133,7 @@ body {
 	animation-delay: 100;
 	animation-fill-mode: backwards;
 }
-.proxPage {
+.proxPage-PostCreate {
 	justify-content: center;
 	align-items: center;
 	animation: leftToRight 250ms linear;
@@ -141,11 +141,11 @@ body {
 	animation-fill-mode: backwards;
 }
 
-.proxPage h1 {
+.proxPage-PostCreate h1 {
 	text-align: center;
 }
 
-.proxPage button {
+#proxPage-PostCreate {
 	position: sticky;
 	border: 0px;
 	border-radius: 5px;
@@ -158,7 +158,7 @@ body {
 	font-size: 14px;
 }
 
-.proxPage button:hover {
+#proxPage-PostCreate:hover {
 	background-color: rgb(9, 83, 19);
 	cursor: pointer;
 }
@@ -221,7 +221,7 @@ body {
 	color: #fafafa;
 }
 
-.proxPage-vertical {
+.proxPage-PostCreate-vertical {
 	display: flex;
 	flex-direction: column;
 	margin-right: 40px;

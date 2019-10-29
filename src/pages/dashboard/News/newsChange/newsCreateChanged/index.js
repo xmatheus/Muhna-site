@@ -16,6 +16,8 @@ import UploadFiles from '../../uploadFiles';
 import { login, saveData } from '../../../../services/auth';
 
 import AllGallery from '../../../AllGallery';
+
+import LinkYtUpload from '../../LinkYtUpload';
 export default class NewsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -249,22 +251,27 @@ export default class NewsCreateChanged extends Component {
 				                </div>
 				            </div>
 				        ) : (
-				            <div className="proxPage">
-				                <h1>Adicionar mídia a notícia</h1>
-				                <UploadFiles
-				                    newsid={this.props.newsid}
-				                ></UploadFiles>
-				                <button
-				                    onClick={() => {
-				                        this.props.getNews(this.props.page);
-				                        setTimeout(() => {
-				                            this.props.backpag();
-				                        }, 100);
-				                    }}
-				                >
-									Finalizar
-				                </button>
-				            </div>
+							<>
+								<div className="proxPage-NewsChange">
+								    <h1>Adicionar mídia a notícia</h1>
+								    <UploadFiles
+								        newsid={this.props.newsid}
+								    ></UploadFiles>
+								    <LinkYtUpload newsid={this.props.newsid} />
+
+								    <button
+								        id="proxPage-NewsChange"
+								        onClick={() => {
+								            this.props.getNews(this.props.page);
+								            setTimeout(() => {
+								                this.props.backpag();
+								            }, 100);
+								        }}
+								    >
+										Finalizar
+								    </button>
+								</div>
+							</>
 				        )}
 				        <ul className="squares"></ul>
 				    </div>

@@ -23,7 +23,7 @@
 }
 
 .sub-div-news,
-.proxPage {
+.proxPage-NewsChange {
 	display: flex;
 	flex-direction: column;
 	border: 2px solid rgba(3, 3, 3, 0.733);
@@ -133,7 +133,8 @@ body {
 	animation-delay: 100;
 	animation-fill-mode: backwards;
 }
-.proxPage {
+.proxPage-NewsChange {
+	display: flex;
 	justify-content: center;
 	overflow-y: auto;
 	align-items: center;
@@ -142,11 +143,11 @@ body {
 	animation-fill-mode: backwards;
 }
 
-.proxPage h1 {
+.proxPage-NewsChange h1 {
 	text-align: center;
 }
 
-.proxPage button {
+#proxPage-NewsChange {
 	border: 0px;
 	border-radius: 5px;
 	padding: 10px;
@@ -158,7 +159,7 @@ body {
 	font-size: 14px;
 }
 
-.proxPage button:hover {
+#proxPage-NewsChange:hover {
 	background-color: rgb(9, 83, 19);
 	cursor: pointer;
 }

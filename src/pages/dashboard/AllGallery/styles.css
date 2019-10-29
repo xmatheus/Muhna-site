@@ -37,3 +37,19 @@
 		transform: translateY(0);
 	}
 }
+
+.effectUp {
+	animation: upModal 300ms linear;
+	animation-fill-mode: backwards;
+}
+@keyframes upModal {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(-150%);
+	}
+}

@@ -16,6 +16,7 @@ import UploadFiles from '../../uploadFiles';
 import { login, saveData } from '../../../../services/auth';
 
 import AllGallery from '../../../AllGallery';
+import LinkYtUpload from '../../LinkYtUpload';
 export default class PostsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -214,12 +215,14 @@ export default class PostsCreateChanged extends Component {
 				                </div>
 				            </div>
 				        ) : (
-				            <div className="proxPage">
+				            <div className="proxPage-PostChange">
 				                <h1>Adicionar mídia a postagem</h1>
 				                <UploadFiles
 				                    postid={this.props.postid}
 				                ></UploadFiles>
+				                <LinkYtUpload postid={this.props.postid} />
 				                <button
+				                    id="proxPage-PostChange"
 				                    onClick={() => {
 				                        this.props.getPosts(this.props.page);
 				                        setTimeout(() => {
