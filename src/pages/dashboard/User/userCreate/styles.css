@@ -1,0 +1,19 @@
+.validade-error {
+	animation: nono 400ms linear;
+	animation-iteration-count: 2;
+}
+
+@keyframes nono {
+	0% {
+		transform: translateX(0);
+	}
+	35% {
+		transform: translateX(-10%);
+	}
+	70% {
+		transform: translateX(10%);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}

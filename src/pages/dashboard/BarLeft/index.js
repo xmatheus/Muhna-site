@@ -27,6 +27,7 @@ import PostsChange from '../Post/postChange'
 
 import PostQrcode from '../Post/postQrcode'
 
+import UserCreate from '../User/userCreate'
 
 
 export default class BarLeft extends Component {
@@ -235,7 +236,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+	                                            this.props.component(<UserCreate/>);
 	                                        }}
 	                                    >
 	                                        <FaUsers
