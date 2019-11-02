@@ -5,7 +5,6 @@ import { FaNewspaper, FaQrcode, FaUsers } from 'react-icons/fa';
 import { MdKeyboardArrowLeft, MdExpandMore } from 'react-icons/md';
 
 // import { Container } from './styles';
-import './styles.css';
 
 import { getData } from '../../services/auth';
 
@@ -28,6 +27,10 @@ import PostsChange from '../Post/postChange'
 import PostQrcode from '../Post/postQrcode'
 
 import UserCreate from '../User/userCreate'
+
+import UserDelete from '../User/userDelete'
+
+import './styles.css';
 
 
 export default class BarLeft extends Component {
@@ -249,7 +252,7 @@ export default class BarLeft extends Component {
 	                                    <div
 	                                        className="div-horizontal-subMenu"
 	                                        onClick={() => {
-	                                            this.props.component(<h1>Em desenvolvimento</h1>);
+	                                            this.props.component(<UserDelete/>);
 	                                        }}
 	                                    >
 	                                        <FaUsers

@@ -241,15 +241,6 @@ export default class PostDelete extends Component {
 	    }
 	};
 
-	editPost = (title, resume, post, postid) => {
-	    this.setState({ title, resume, post, postid });
-	    this.setState({ proxPag: true });
-	};
-
-	backPag = () => {
-	    this.setState({ proxPag: false });
-	};
-
 	changeInput = async e => {
 	    const value = e.target.value;
 	    this.setState({ value });
