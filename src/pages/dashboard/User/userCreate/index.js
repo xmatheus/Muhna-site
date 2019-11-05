@@ -1,16 +1,5 @@
 import React, { Component } from 'react';
 
-import {
-    Container,
-    Loading,
-    ErroLabel,
-    SubContainer,
-    DefaultLabel,
-    ContainerCheckBox,
-    ContainerButtonSendUSer,
-    PacmanLoad
-} from './styles';
-
 import { Pacman } from 'react-pure-loaders';
 
 import Checkbox from '@material-ui/core/Checkbox';
@@ -22,6 +11,20 @@ import '../../stylesRetangulo/styles.css';
 import './styles.css';
 
 import api from '../../../services/api';
+
+import {
+    ErroLabel,
+    DefaultLabel,
+    ContainerCheckBox,
+    ContainerButtonSendUSer
+} from './styles';
+
+import {
+    Container,
+    SubContainer,
+    PacmanLoad,
+    Loading
+} from '../../StyledComponentsDashboard/styles'; //estilos usados por varias telas
 
 export default class UserCreate extends Component {
 	state = {
@@ -210,7 +213,7 @@ export default class UserCreate extends Component {
 	};
 
 	addEfeitoDeErro = input => {
-	    input.classList.add('validade-error');
+	    input.classList.add('validade-error-user');
 
 	    input.style.border = '2px solid rgb(255,0,0)';
 
@@ -219,8 +222,8 @@ export default class UserCreate extends Component {
 	    }, 2500);
 
 	    input.addEventListener('animationend', event => {
-	        if (event.animationName === 'nono') {
-	            input.classList.remove('validade-error');
+	        if (event.animationName === 'nonoUser') {
+	            input.classList.remove('validade-error-user');
 	        }
 	    });
 	};

@@ -17,6 +17,7 @@ import './styles.css';
 import '../../stylesRetangulo/styles.css';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { Container, SubContainer, PacmanLoad, Loading } from '../../StyledComponentsDashboard/styles';
 
 export default class PostDelete extends Component {
 	state = {
@@ -263,12 +264,12 @@ export default class PostDelete extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="postChange-main-Post-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="postChange-main-Post">
-				        <div className="postChange-sub-div-post">
+				    <Container>
+				        <SubContainer>
 				            <div id="inputOne">
 				                <br />
 				                <input
@@ -395,13 +396,13 @@ export default class PostDelete extends Component {
 											    </div>
 											</div>
 											{!this.state.searchActive ? (
-											    <div>
+											    <PacmanLoad>
 											        <p>
 											            {page +
 															'/' +
 															pages.pages}
 											        </p>
-											    </div>
+											    </PacmanLoad>
 											) : null}
 											<div className="div-button-proxAndback">
 											    <button
@@ -427,13 +428,13 @@ export default class PostDelete extends Component {
 									)}
 								</>
 				            ) : (
-								<>
+								<PacmanLoad>
 									<Pacman color={'#3f2306'} loading={true} />
-								</>
+								</PacmanLoad>
 				            )}
-				        </div>
+				        </SubContainer>
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

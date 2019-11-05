@@ -5,7 +5,7 @@ import './styles.css';
 
 import { Pacman } from 'react-pure-loaders';
 
-import EditorText from '../../../../editorText';
+import EditorText from '../../../editorText';
 
 import api from '../../../../services/api';
 

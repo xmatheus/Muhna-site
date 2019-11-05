@@ -6,7 +6,7 @@ import { MdKeyboardArrowLeft, MdExpandMore } from 'react-icons/md';
 
 // import { Container } from './styles';
 
-import { getData } from '../../services/auth';
+import { getData, logout } from '../../services/auth';
 
 import logo from '../../../assets/logo.png';
 
@@ -50,10 +50,11 @@ export default class BarLeft extends Component {
 	            {this.state.data ? (
 	                <>
 	                    <div className="barleft-one-div" onClick={()=>{this.props.component(<AboutPage/>)}}  >
-	                        <img  alt="logo MuHNA" id="img-div" src={logo}></img>
+	                        <img></img>
 	                        <p id="p-hello-visit">
 	                            {'Olá, ' + this.state.data.name + '.'}
 	                        </p>
+	                        <button onClick={()=>{logout(); this.props.history.push('/')}}>sair</button>
 	                    </div>
 	                    <div className="menu-items">
 	                        <div className="div-vertical">

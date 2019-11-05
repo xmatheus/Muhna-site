@@ -5,7 +5,7 @@ import './styles.css';
 
 import { Pacman } from 'react-pure-loaders';
 
-import EditorText from '../../../../editorText';
+import EditorText from '../../../editorText';
 
 import api from '../../../../services/api';
 
@@ -17,6 +17,13 @@ import { login, saveData } from '../../../../services/auth';
 
 import AllGallery from '../../../AllGallery';
 import LinkYtUpload from '../../LinkYtUpload';
+
+import {
+    Container,
+    SubContainer,
+    ContainerUploadFiles,
+    BotaoVerde
+} from '../../../StyledComponentsDashboard/styles'; //estilos usados por varias telas
 export default class PostsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -149,7 +156,7 @@ export default class PostsCreateChanged extends Component {
 	};
 
 	changeEffect = () => {
-	    const formOne = document.querySelector('.sub-div-post');
+	    const formOne = document.querySelector('.sub-div-postagemt');
 	    formOne.classList.add('class-rightToLeft');
 	    const formError = document.querySelector('.class-rightToLeft');
 	    if (formError) {
@@ -173,9 +180,9 @@ export default class PostsCreateChanged extends Component {
 				        <Pacman color={'#3f2306'} loading={true} />
 				    </div>
 				) : (
-				    <div className="main-Posts">
+				    <Container>
 				        {!this.state.proxPag ? (
-				            <div className="sub-div-post">
+				            <SubContainer className="sub-div-postagemt">
 				                <form>
 				                    <label>Titulo</label>
 				                    <br></br>
@@ -213,16 +220,15 @@ export default class PostsCreateChanged extends Component {
 										próximo
 				                    </button>
 				                </div>
-				            </div>
+				            </SubContainer>
 				        ) : (
-				            <div className="proxPage-PostChange">
+				            <ContainerUploadFiles>
 				                <h1>Adicionar mídia a postagem</h1>
 				                <UploadFiles
 				                    postid={this.props.postid}
 				                ></UploadFiles>
 				                <LinkYtUpload postid={this.props.postid} />
-				                <button
-				                    id="proxPage-PostChange"
+				                <BotaoVerde
 				                    onClick={() => {
 				                        this.props.getPosts(this.props.page);
 				                        setTimeout(() => {
@@ -231,11 +237,11 @@ export default class PostsCreateChanged extends Component {
 				                    }}
 				                >
 									Finalizar
-				                </button>
-				            </div>
+				                </BotaoVerde>
+				            </ContainerUploadFiles>
 				        )}
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

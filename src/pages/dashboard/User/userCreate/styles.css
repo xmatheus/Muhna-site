@@ -1,9 +1,9 @@
-.validade-error {
-	animation: nono 250ms linear;
+.validade-error-user {
+	animation: nonoUser 250ms linear;
 	animation-iteration-count: 2;
 }
 
-@keyframes nono {
+@keyframes nonoUser {
 	0% {
 		transform: translateX(0);
 	}

@@ -7,7 +7,6 @@ import '../stylesRetangulo/styles.css';
 
 import { FaUserAstronaut, FaGithub, FaEnvelope } from 'react-icons/fa';
 
-
 export default class AboutPage extends Component {
 	componentDidMount = () => {
 	    setTimeout(() => {

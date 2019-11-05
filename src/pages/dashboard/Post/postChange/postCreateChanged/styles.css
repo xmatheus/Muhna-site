@@ -22,44 +22,6 @@
 	min-height: 300px;
 }
 
-.sub-div-post,
-.proxPage-PostChange {
-	display: flex;
-	flex-direction: column;
-	border: 2px solid rgba(3, 3, 3, 0.733);
-	border-radius: 10px;
-	width: 60%;
-	height: 90%;
-	padding: 20px;
-	overflow-y: auto;
-	position: sticky;
-	background-color: #ffffff;
-}
-
-.sub-div-post label {
-	color: black;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.sub-div-post input {
-	margin-top: 5px;
-	margin-bottom: 20px;
-	width: 100%;
-	height: 35px;
-	border-radius: 4px;
-	padding: 12px 20px;
-	box-sizing: border-box;
-	color: #000000c2;
-	font-size: 16px;
-	display: inline-block;
-	border: 1px solid rgb(44, 25, 2);
-}
-
-.sub-div-post input:focus {
-	background-color: none;
-}
-
 /* squares */
 html,
 body {
@@ -124,35 +86,6 @@ body {
 	animation: leftToRight 250ms linear;
 	animation-delay: 100;
 	animation-fill-mode: backwards;
-}
-.proxPage-PostChange {
-	justify-content: center;
-	overflow-y: auto;
-	align-items: center;
-	animation: leftToRight 250ms linear;
-	animation-delay: 100;
-	animation-fill-mode: backwards;
-}
-
-.proxPage-PostChange h1 {
-	text-align: center;
-}
-
-#proxPage-PostChange {
-	border: 0px;
-	border-radius: 5px;
-	padding: 10px;
-	background-color: #06b61d;
-	color: #fff;
-	text-align: center;
-	text-decoration: none;
-	font-weight: bold;
-	font-size: 14px;
-}
-
-#proxPage-PostChange:hover {
-	background-color: rgb(9, 83, 19);
-	cursor: pointer;
 }
 
 #div-input-popup-main {

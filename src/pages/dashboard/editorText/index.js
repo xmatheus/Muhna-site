@@ -1,4 +1,4 @@
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import React, { Component } from 'react';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
@@ -44,16 +44,14 @@ export default class EditorText extends Component {
 	    const { editorState } = this.state;
 
 	    return (
-	        <div className="editor-main-div">
-	            <Editor
-	                placeholder={this.props.placeholder}
-	                editorState={editorState}
-	                wrapperClassName="demo-wrapper"
-	                editorClassName="demo-editor"
-	                toolbarClassName="toolbar-class"
-	                onEditorStateChange={this.onEditorStateChange}
-	            />
-	        </div>
+	        <Editor
+	            placeholder={this.props.placeholder}
+	            editorState={editorState}
+	            wrapperClassName="demo-wrapper"
+	            editorClassName="demo-editor"
+	            toolbarClassName="toolbar-class"
+	            onEditorStateChange={this.onEditorStateChange}
+	        />
 	    );
 	}
 }

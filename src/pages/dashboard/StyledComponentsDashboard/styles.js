@@ -23,36 +23,6 @@ export const Container = styled.div`
 	position: sticky;
 	overflow: hidden;
 	animation: ${fade} 250ms linear;
-	min-height: 300px;
-`;
-
-export const ContainerCheckBox = styled.div`
-	display: flex;
-	justify-content: left;
-	align-items: center;
-	flex-direction: row;
-
-	label {
-		font-size: 15px;
-		color: #423e3e;
-		font-family: Verdana, Geneva, Tahoma, sans-serif;
-	}
-`;
-
-export const ErroLabel = styled.label`
-	color: rgba(255, 0, 0, 1);
-	font-size: 18px;
-	font-weight: bolder;
-	padding: 2px;
-	border: 1px solid rgba(255, 0, 0, 1);
-	border-radius: 5px;
-	margin-left: 5px;
-`;
-
-export const DefaultLabel = styled.label`
-	color: black;
-	font-size: 18px;
-	font-weight: bold;
 `;
 
 export const SubContainer = styled.div`
@@ -60,14 +30,16 @@ export const SubContainer = styled.div`
 	flex-direction: column;
 	border-radius: 10px;
 	width: 60%;
-	height: 75%;
+	height: 90%;
 	padding: 20px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	position: sticky;
 	background-color: #ffffff;
 
-	/* box-shadow: 7px 9px 18px -1px rgba(0, 0, 0, 1); */
+	justify-content: space-between;
+	/* align-items: center; */
+
 	box-shadow: 7px 9px 32px -7px rgba(0, 0, 0, 1);
 	input {
 		margin-top: 5px;
@@ -92,29 +64,59 @@ export const SubContainer = styled.div`
 	}
 `;
 
-export const ContainerButtonSendUSer = styled.div`
+export const PacmanLoad = styled.div`
 	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	animation: ${fade} 200ms linear;
+`;
+
+export const ContainerUploadFiles = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	height: 90%;
+	padding: 20px;
+	overflow-y: auto;
+	position: sticky;
+	background-color: #ffffff;
+	justify-content: center;
+	overflow-y: auto;
+	align-items: center;
+	box-shadow: 7px 9px 32px -7px rgba(0, 0, 0, 1);
+	animation: leftToRight 250ms linear;
+	animation-delay: 100;
+	animation-fill-mode: backwards;
+
+	h1 {
+		text-align: center;
+	}
+`;
+
+export const BotaoVerde = styled.button`
+	border: 0px;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: #06b61d;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+
+	:hover {
+		background-color: rgb(9, 83, 19);
+		cursor: pointer;
+	}
+`;
+
+export const Loading = styled.div`
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	justify-content: center;
-	padding-top: 60px;
-	height: 30%;
-
-	button {
-		border: 0px;
-		border-radius: 5px;
-		padding: 10px;
-		background-color: #06b61d;
-		color: #fff;
-		text-align: center;
-		text-decoration: none;
-		font-weight: bold;
-		font-size: 14px;
-		margin-top: 20px;
-
-		:hover {
-			background-color: rgb(9, 83, 19);
-			cursor: pointer;
-		}
-	}
+	width: 80%;
+	height: 100vh;
 `;

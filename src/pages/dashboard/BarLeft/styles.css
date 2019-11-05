@@ -1,32 +1,10 @@
-/* width */
-::-webkit-scrollbar {
-	width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-	background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: rgb(46, 25, 1);
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: rgb(77, 42, 2);
-}
-
 .barleft-main-div {
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: rgb(54, 29, 1);
 	justify-content: center;
 	height: 100vh;
-	min-width: 150px;
-	width: 16%;
+	width: 12vw;
 	max-width: 200px;
-	/* box-shadow: 15px 0px 5px 15px #3f2306; */
 	box-shadow: 20px 0px 38px 10px rgba(63, 35, 6, 0.5),
 		10px 0px 12px 8px rgba(63, 35, 6, 0.33);
 	animation: left-run 500ms linear;
@@ -37,19 +15,23 @@
 #p-hello-visit {
 	text-align: center;
 	margin-top: 20px;
-	font-size: 18px;
+	font-size: 2.5vh + 1.5vw;
 	color: azure;
 }
 
 .barleft-main-div img {
 	margin-top: 20px;
-	height: 75px;
+	height: 9vh;
 	background: #fafafa;
-	border-radius: 60px;
-	border: 5px solid white;
+	border-radius: 50px;
 	animation: cai 280ms linear;
 	animation-fill-mode: backwards;
 	animation-delay: 320ms;
+	width: 80%;
+	background-image: url("../../../assets//logo.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: 50% 50%;
 }
 
 .barleft-one-div {
@@ -58,12 +40,25 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	min-width: 150px;
+}
+
+.barleft-one-div button {
+	margin-top: 10px;
+	padding: 0px 5px;
+	background-color: rgba(0, 0, 0, 0);
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+}
+
+.barleft-one-div button:hover {
+	cursor: pointer;
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #000;
 }
 
 .barleft-main-div img:hover {
-	background: #ffffff;
-	border: 5px solid #ffffff;
 	cursor: pointer;
 }
 
@@ -95,10 +90,10 @@
 }
 
 .div-horizontal p {
-	font-size: 18px;
+	font-size: 2.2vh;
 	text-align: center;
 	color: azure;
-	margin-left: 15px;
+	/* margin-left: 15px; */
 	margin-right: 15px;
 }
 
@@ -120,7 +115,7 @@
 	margin-bottom: 25px;
 	border-radius: 5px;
 	padding: 2px;
-	margin-left: 30px;
+	margin-left: 2vw;
 }
 
 .div-horizontal-subMenu:hover {
@@ -135,10 +130,10 @@
 }
 
 .div-horizontal-subMenu p {
-	font-size: 15px;
+	font-size: 1.6vh;
 	text-align: center;
 	color: azure;
-	margin-left: 10px;
+	margin-left: 0.2vw;
 }
 
 .div-vertical {
@@ -195,5 +190,11 @@
 	}
 	100% {
 		transform: translateX(0);
+	}
+}
+
+@media (max-width: 800px) {
+	.barleft-main-div {
+		width: 25vw;
 	}
 }

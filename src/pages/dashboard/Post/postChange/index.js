@@ -18,6 +18,13 @@ import '../../stylesRetangulo/styles.css';
 
 import PostsCreateChanged from './postCreateChanged';
 
+import {
+    Container,
+    SubContainer,
+    PacmanLoad,
+    Loading
+} from '../../StyledComponentsDashboard/styles'; //estilos usados por varias telas
+
 export default class PostsChange extends Component {
 	state = {
 	    onScreen: false,
@@ -208,13 +215,13 @@ export default class PostsChange extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="postChange-main-Posts-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="postChange-main-Posts">
+				    <Container>
 				        {!this.state.proxPag ? (
-				            <div className="postChange-sub-div-post">
+				            <SubContainer>
 				                <div id="inputOne">
 				                    <br />
 				                    <input
@@ -316,13 +323,13 @@ export default class PostsChange extends Component {
 												    )}
 												</div>
 												{!this.state.searchActive ? (
-												    <div>
+												    <PacmanLoad>
 												        <p>
 												            {page +
 																'/' +
 																pages.pages}
 												        </p>
-												    </div>
+												    </PacmanLoad>
 												) : null}
 												<div className="div-button-proxAndback">
 												    <button
@@ -357,14 +364,14 @@ export default class PostsChange extends Component {
 										)}
 									</>
 				                ) : (
-									<>
-										<Pacman
-										    color={'#3f2306'}
-										    loading={true}
-										/>
-									</>
+				                    <PacmanLoad>
+				                        <Pacman
+				                            color={'#3f2306'}
+				                            loading={true}
+				                        />
+				                    </PacmanLoad>
 				                )}
-				            </div>
+				            </SubContainer>
 				        ) : (
 				            <PostsCreateChanged
 				                title={this.state.title}
@@ -378,7 +385,7 @@ export default class PostsChange extends Component {
 				            />
 				        )}
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

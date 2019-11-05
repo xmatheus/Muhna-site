@@ -6,7 +6,7 @@ import '../../stylesRetangulo/styles.css';
 
 import { Pacman } from 'react-pure-loaders';
 
-import EditorText from '../../../editorText';
+import EditorText from '../../editorText';
 
 import api from '../../../services/api';
 
@@ -292,7 +292,7 @@ export default class NewsCreate extends Component {
 				                <UploadFiles
 				                    newsid={this.state.newsid}
 				                ></UploadFiles>
-				                <LinkYtUpload newsid={this.state.newsid}/>
+				                <LinkYtUpload newsid={this.state.newsid} />
 
 				                <button
 				                    onClick={this.backPag}

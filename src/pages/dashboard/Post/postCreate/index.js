@@ -8,7 +8,7 @@ import QRCode from 'qrcode.react';
 
 import { Pacman } from 'react-pure-loaders';
 
-import EditorText from '../../../editorText';
+import EditorText from '../../editorText';
 
 import api from '../../../services/api';
 
@@ -20,6 +20,14 @@ import UploadFiles from '../uploadFiles';
 
 import AllGallery from '../../AllGallery';
 import LinkYtUpload from '../LinkYtUpload';
+
+import {
+    Container,
+    SubContainer,
+    ContainerUploadFiles,
+    BotaoVerde,
+    Loading
+} from '../../StyledComponentsDashboard/styles';
 export default class PostCreate extends Component {
 	state = {
 	    onScreen: false,
@@ -211,13 +219,13 @@ export default class PostCreate extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="main-post-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="main-post">
+				    <Container>
 				        {!this.state.proxPag ? (
-				            <div className="sub-div-post">
+				            <SubContainer className="sub-div-post">
 				                <form>
 				                    <label>Titulo</label>
 				                    <br></br>
@@ -254,14 +262,14 @@ export default class PostCreate extends Component {
 										próximo
 				                    </button>
 				                </div>
-				            </div>
+				            </SubContainer>
 				        ) : (
-				            <div className="proxPage-PostCreate">
+				            <ContainerUploadFiles className="proxPage-PostCreate">
 				                <h1>Adicionar mídia a notícia</h1>
 				                <UploadFiles
 				                    postid={this.state.postid}
 				                ></UploadFiles>
-								<LinkYtUpload  postid={this.state.postid}/>
+				                <LinkYtUpload postid={this.state.postid} />
 				                <div id="qrcode-div">
 				                    <QRCode
 				                        id="qrcode-muhna"
@@ -273,17 +281,17 @@ export default class PostCreate extends Component {
 				                    <a onClick={this.downloadQR}>
 										Download QRcode
 				                    </a>
-				                    <button
+				                    <BotaoVerde
 				                        id="proxPage-PostCreate"
 				                        onClick={this.backPag}
 				                    >
 										Finalizar
-				                    </button>
+				                    </BotaoVerde>
 				                </div>
-				            </div>
+				            </ContainerUploadFiles>
 				        )}
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

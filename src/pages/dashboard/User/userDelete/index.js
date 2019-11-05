@@ -1,19 +1,5 @@
 import React, { Component } from 'react';
 
-import {
-    Container,
-    Loading,
-    SubContainer,
-    TitleAllUsers,
-    ContainerLi,
-    ContainerVertical,
-    ContainerIconsHorizontal,
-    ContainerDeleteButton,
-    ContainerButtonProxAndBack,
-    PacmanLoad,
-    ContainerHorizontal
-} from './styles';
-
 import { Pacman } from 'react-pure-loaders';
 
 import swal from '@sweetalert/with-react';
@@ -24,9 +10,24 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Lottie from 'react-lottie';
 
-import '../../stylesRetangulo/styles.css';
+import {
+    TitleAllUsers,
+    ContainerLi,
+    ContainerVertical,
+    ContainerIconsHorizontal,
+    ContainerDeleteButton,
+    ContainerButtonProxAndBack,
+    ContainerHorizontal
+} from './styles';
 
-import './styles.css';
+import {
+    Container,
+    SubContainer,
+    PacmanLoad,
+    Loading
+} from '../../StyledComponentsDashboard/styles'; //estilos usados por varias telas
+
+import '../../stylesRetangulo/styles.css';
 
 import api from '../../../services/api';
 
@@ -90,10 +91,6 @@ export default class UserDelete extends Component {
 	deletePost = id => {
 	    const { docs, page } = this.state;
 
-	    if (docs.length === 1) {
-	        this.getUsers(page);
-	    }
-
 	    api.delete(`/auth?userId=${id}`)
 	        .then(response => {
 	            if (response.status !== 200) {
@@ -104,10 +101,13 @@ export default class UserDelete extends Component {
 
 	            swal('Sucesso', 'O usuário foi excluido!', 'success');
 	            this.removeFromState(id);
+	            this.getUsers(1);
 	        })
 	        .catch(erro => {
 	            this.deuErro();
 	        });
+
+	    this.getUsers(1);
 	};
 
 	deuErro = () => {
@@ -139,6 +139,7 @@ export default class UserDelete extends Component {
 	    }).then(option => {
 	        if (option) {
 	            this.loginEnviar();
+	            this.getUsers(); // caso tenha duas sessões e alguém exclua um usuário
 	        }
 	    });
 	};
@@ -161,6 +162,18 @@ export default class UserDelete extends Component {
 	            this.erroLogin();
 	            swal.stopLoading();
 	        });
+	};
+
+	loginFeito = () => {
+	    swal('Sucesso', 'login feito, sua sessão foi restaurada.', 'success');
+	};
+
+	erroLogin = () => {
+	    swal(
+	        'Error no login',
+	        'sua sessão não foi restaurada. \nAlterações/envios/remoções não serão concluidas enquanto o login não for feito.',
+	        'error'
+	    );
 	};
 
 	handleChangeEmail = event => {
@@ -278,9 +291,9 @@ export default class UserDelete extends Component {
 	            preserveAspectRatio: 'xMidYMid slice'
 	        },
 	        resizeMode: true
-		};
-		
-		const notAdmin = {
+	    };
+
+	    const notAdmin = {
 	        loop: true,
 	        autoplay: true,
 	        animationData: require('../../../../assets/carinha.json'),
@@ -347,39 +360,43 @@ export default class UserDelete extends Component {
 											            {this.state.docs.map(
 											                user => (
 											                    <ContainerHorizontal>
-											                        {user.isAdmin ? (<Lottie
-											                            options={
-											                                admin
-											                            }
-											                            height={
-											                                '20%'
-											                            }
-											                            width={
-											                                '10%'
-											                            }
-											                            isStopped={
-											                                false
-											                            }
-											                            isPaused={
-											                                false
-											                            }
-											                        />):(<Lottie
-											                            options={
-											                                notAdmin
-											                            }
-											                            height={
-											                                '20%'
-											                            }
-											                            width={
-											                                '10%'
-											                            }
-											                            isStopped={
-											                                false
-											                            }
-											                            isPaused={
-											                                false
-											                            }
-											                        />)}
+											                        {user.isAdmin ? (
+											                            <Lottie
+											                                options={
+											                                    admin
+											                                }
+											                                height={
+											                                    '20%'
+											                                }
+											                                width={
+											                                    '10%'
+											                                }
+											                                isStopped={
+											                                    false
+											                                }
+											                                isPaused={
+											                                    false
+											                                }
+											                            />
+											                        ) : (
+											                            <Lottie
+											                                options={
+											                                    notAdmin
+											                                }
+											                                height={
+											                                    '20%'
+											                                }
+											                                width={
+											                                    '10%'
+											                                }
+											                                isStopped={
+											                                    false
+											                                }
+											                                isPaused={
+											                                    false
+											                                }
+											                            />
+											                        )}
 											                        <li
 											                            key={
 											                                user._id
@@ -429,7 +446,7 @@ export default class UserDelete extends Component {
 											                                    </span>
 											                                </ContainerIconsHorizontal>
 
-																			<ContainerIconsHorizontal>
+											                                <ContainerIconsHorizontal>
 											                                    <MdMail
 											                                        size={
 											                                            15
@@ -441,7 +458,9 @@ export default class UserDelete extends Component {
 											                                        }}
 											                                    />
 											                                    <span>
-											                                        {user.email}
+											                                        {
+											                                            user.email
+											                                        }
 											                                    </span>
 											                                </ContainerIconsHorizontal>
 											                            </ContainerVertical>
@@ -454,7 +473,7 @@ export default class UserDelete extends Component {
 											                            >
 											                                <MdDelete
 											                                    size={
-											                                        21
+											                                        35
 											                                    }
 											                                    color="#b60202"
 											                                />
