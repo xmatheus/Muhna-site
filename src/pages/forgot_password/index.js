@@ -83,10 +83,9 @@ class ForgotPassword extends React.Component {
 
 	    const { email } = this.state;
 
-	    await api
-	        .post('/auth/forgot_password', {
-	            email: email
-	        })
+	    api.post('/auth/forgot_password', {
+	        email: email
+	    })
 	        .then(response => {
 	            if (response.status !== 200) {
 	                this.addEfeitoDeErroDiv();
