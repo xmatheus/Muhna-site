@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "19d34cbcc3a4932740bd49fba18ab2d8",
+    "revision": "305339f1659b15a6676acc559789700e",
     "url": "/internal-Muhna/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/internal-Muhna/static/css/2.d087049b.chunk.css"
   },
   {
-    "revision": "848fd085271fc0d8ef61",
+    "revision": "422ccc2197b653cfe25c",
     "url": "/internal-Muhna/static/css/main.94b0861f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/internal-Muhna/static/js/2.bfaf4e23.chunk.js"
   },
   {
-    "revision": "848fd085271fc0d8ef61",
-    "url": "/internal-Muhna/static/js/main.3351bc50.chunk.js"
+    "revision": "422ccc2197b653cfe25c",
+    "url": "/internal-Muhna/static/js/main.2f2f8120.chunk.js"
   },
   {
     "revision": "a82cdc037002a884df3d",
