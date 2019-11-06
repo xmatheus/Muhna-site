@@ -112,6 +112,7 @@ class ForgotPassword extends React.Component {
 	        //     this.setState({ messageSucess: false });
 	        // }, 5000);
 	    } catch (error) {
+	        console.log(error);
 	        this.setState({ enviar: null });
 	        this.addEfeitoDeErroDiv();
 	    }
