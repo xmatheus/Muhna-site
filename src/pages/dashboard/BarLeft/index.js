@@ -8,8 +8,6 @@ import { MdKeyboardArrowLeft, MdExpandMore } from 'react-icons/md';
 
 import { getData, logout } from '../../services/auth';
 
-import logo from '../../../assets/logo.png';
-
 import AboutPage from '../AboutPage'
 
 import NewsCreate from '../News/newsCreate';
@@ -50,7 +48,7 @@ export default class BarLeft extends Component {
 	            {this.state.data ? (
 	                <>
 	                    <div className="barleft-one-div" onClick={()=>{this.props.component(<AboutPage/>)}}  >
-	                        <img></img>
+	                        <img alt=''></img>
 	                        <p id="p-hello-visit">
 	                            {'Olá, ' + this.state.data.name + '.'}
 	                        </p>

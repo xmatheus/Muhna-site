@@ -91,8 +91,6 @@ export default class UserDelete extends Component {
 	};
 
 	deletePost = id => {
-	    const { docs, page } = this.state;
-
 	    api.delete(`/auth?userId=${id}`)
 	        .then(response => {
 	            if (response.status !== 200) {

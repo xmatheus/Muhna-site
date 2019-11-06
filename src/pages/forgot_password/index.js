@@ -139,7 +139,7 @@ class ForgotPassword extends React.Component {
 	};
 
 	popupDeuErrado = () => {
-	    swal('Error', 'Senha não rocada', 'error');
+	    swal('Error', 'Senha não trocada', 'error');
 	};
 
 	changePassowrd = () => {

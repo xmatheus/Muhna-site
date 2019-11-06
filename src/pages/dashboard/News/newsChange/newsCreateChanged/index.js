@@ -128,7 +128,7 @@ export default class NewsCreateChanged extends Component {
 	    this.setState({ enviar: true });
 
 	    setTimeout(() => {
-	        const { title, resume, news } = this.state;
+	        let { title, resume, news } = this.state;
 
 	        if (
 	            title === undefined ||
