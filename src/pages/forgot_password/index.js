@@ -67,6 +67,45 @@ class ForgotPassword extends React.Component {
 	    this.setState({ rePassword: event.target.value });
 	};
 
+	componentDidMount = () => {
+	    //aperta enter ela envia o email e senha
+	    document.querySelector('.login').addEventListener('keypress', event => {
+	        if (event.keyCode === 13) {
+	            event.preventDefault();
+	        }
+	    });
+
+	    this.EffectCubo();
+	};
+
+	enviar = () => {
+	    this.setState({ enviar: 1 });
+
+	    const { email } = this.state;
+
+	    await api
+	        .post('/auth/forgot_password', {
+	            email: email
+	        })
+	        .then(response => {
+	            if (response.status !== 200) {
+	                this.addEfeitoDeErroDiv();
+	                this.setState({ enviar: null });
+	            } else {
+	                this.setState({
+	                    enviar: null,
+	                    sucess: true,
+	                    messageSucess: true
+	                });
+	            }
+	        })
+	        .catch(error => {
+	            this.addEfeitoDeErroDiv();
+	            console.log(error);
+	            this.setState({ enviar: null });
+	        });
+	};
+
 	addEfeitoDeErroDiv = () => {
 	    const formLogin = document.querySelector('.login');
 
@@ -83,38 +122,6 @@ class ForgotPassword extends React.Component {
 	                formError.classList.remove('validade-error-user');
 	            }
 	        });
-	    }
-	};
-	componentDidMount = () => {
-	    //aperta enter ela envia o email e senha
-	    document.querySelector('.login').addEventListener('keypress', event => {
-	        if (event.keyCode === 13) {
-	            event.preventDefault();
-	        }
-	    });
-
-	    this.EffectCubo();
-	};
-
-	enviar = async () => {
-	    this.setState({ enviar: 1 });
-
-	    const { email } = this.state;
-
-	    try {
-	        await api.post('/auth/forgot_password', {
-	            email: email
-	        });
-
-	        this.setState({ enviar: null, sucess: true, messageSucess: true });
-
-	        // setTimeout(() => {
-	        //     this.setState({ messageSucess: false });
-	        // }, 5000);
-	    } catch (error) {
-	        console.log(error);
-	        this.setState({ enviar: null });
-	        this.addEfeitoDeErroDiv();
 	    }
 	};
 

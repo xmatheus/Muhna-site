@@ -87,10 +87,10 @@ html {
 		transform: translateX(0);
 	}
 	35% {
-		transform: translateX(-10%);
+		transform: translateX(-15%);
 	}
 	70% {
-		transform: translateX(10%);
+		transform: translateX(15%);
 	}
 	100% {
 		transform: translateX(0);
