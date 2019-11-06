@@ -105,3 +105,10 @@ export const ContainerHorizontal = styled.div`
 	margin-bottom: 10px;
 	animation: ${fade} 200ms linear;
 `;
+
+export const LabelPages = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+`;

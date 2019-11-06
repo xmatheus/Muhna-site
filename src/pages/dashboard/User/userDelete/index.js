@@ -17,7 +17,8 @@ import {
     ContainerIconsHorizontal,
     ContainerDeleteButton,
     ContainerButtonProxAndBack,
-    ContainerHorizontal
+	ContainerHorizontal,
+	LabelPages
 } from './styles';
 
 import {
@@ -36,7 +37,8 @@ import { login, saveData } from '../../../services/auth';
 export default class UserDelete extends Component {
 	state = {
 	    onScreen: false,
-	    page: 1
+		page: 1,
+		searchActive:false
 	};
 
 	componentDidMount = () => {
@@ -486,13 +488,13 @@ export default class UserDelete extends Component {
 											    </ContainerLi>
 											</div>
 											{!this.state.searchActive ? (
-											    <PacmanLoad>
+											    <LabelPages>
 											        <p>
 											            {page +
 															'/' +
 															pages.pages}
 											        </p>
-											    </PacmanLoad>
+											    </LabelPages>
 											) : null}
 											<ContainerButtonProxAndBack>
 											    <button
