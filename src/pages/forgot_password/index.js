@@ -112,8 +112,11 @@ class ForgotPassword extends React.Component {
 
 	    formLogin.classList.add('validade-error');
 	    const formError = document.querySelector('.validade-error');
+	    console.log('DE');
 	    if (formError) {
+	        console.log('bug');
 	        formError.addEventListener('animationend', event => {
+	            console.log('fim animation');
 	            if (event.animationName === 'nono') {
 	                this.setState({
 	                    error: 'Nâo foi possível enviar o token para esse email'
@@ -206,7 +209,7 @@ class ForgotPassword extends React.Component {
 	            <ContainerLogin className="loginContainer">
 	                <h1>Alterar senha</h1>
 
-	                {this.state.error ? <p>{this.state.error}</p> : null}
+	                {this.state.error && <p>{this.state.error}</p>}
 
 	                {!this.state.sucess && (
 	                    <form onSubmit={() => {}}>
