@@ -64,7 +64,7 @@ $ serve -s build
 
 ### vídeo
 
-[<img src="https://img.youtube.com/vi/JsfZ0m9w86k/default.jpg" width="50%">](https://youtu.be/JsfZ0m9w86k)
+[Video de exemplo](https://youtu.be/JsfZ0m9w86k)
 
 
 
