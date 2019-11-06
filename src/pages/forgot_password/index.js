@@ -70,17 +70,17 @@ class ForgotPassword extends React.Component {
 	addEfeitoDeErroDiv = () => {
 	    const formLogin = document.querySelector('.login');
 
-	    formLogin.classList.add('validade-error');
-	    const formError = document.querySelector('.validade-error');
+	    formLogin.classList.add('validade-error-user');
+	    const formError = document.querySelector('.validade-error-user');
 	    if (formError) {
 	        formError.addEventListener('animationend', event => {
-	            if (event.animationName === 'nono') {
+	            if (event.animationName === 'nonoUser') {
 	                this.setState({
 	                    error: 'Nâo foi possível enviar o token para esse email'
 	                });
 
 	                setTimeout(() => this.setState({ error: undefined }), 5000);
-	                formError.classList.remove('validade-error');
+	                formError.classList.remove('validade-error-user');
 	            }
 	        });
 	    }
@@ -177,7 +177,7 @@ class ForgotPassword extends React.Component {
 	};
 
 	addEfeitoDeErro = input => {
-	    input.classList.add('validade-error-user');
+	    input.classList.add('validade-error-user-user');
 
 	    input.style.border = '2px solid rgb(255,0,0)';
 
@@ -187,7 +187,7 @@ class ForgotPassword extends React.Component {
 
 	    input.addEventListener('animationend', event => {
 	        if (event.animationName === 'nonoUser') {
-	            input.classList.remove('validade-error-user');
+	            input.classList.remove('validade-error-user-user');
 	        }
 	    });
 	};
