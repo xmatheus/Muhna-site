@@ -69,11 +69,13 @@ class ForgotPassword extends React.Component {
 
 	componentDidMount = () => {
 	    //aperta enter ela envia o email e senha
-	    document.querySelector('.login').addEventListener('keypress', event => {
-	        if (event.keyCode === 13) {
-	            event.preventDefault();
-	        }
-	    });
+	    document
+	        .querySelector('.loginContainer')
+	        .addEventListener('keypress', event => {
+	            if (event.keyCode === 13) {
+	                event.preventDefault();
+	            }
+	        });
 
 	    this.EffectCubo();
 	};
@@ -106,19 +108,19 @@ class ForgotPassword extends React.Component {
 	};
 
 	addEfeitoDeErroDiv = () => {
-	    const formLogin = document.querySelector('.login');
+	    const formLogin = document.querySelector('.loginContainer');
 
-	    formLogin.classList.add('validade-error-user');
-	    const formError = document.querySelector('.validade-error-user');
+	    formLogin.classList.add('validade-error');
+	    const formError = document.querySelector('.validade-error');
 	    if (formError) {
 	        formError.addEventListener('animationend', event => {
-	            if (event.animationName === 'nonoUser') {
+	            if (event.animationName === 'nono') {
 	                this.setState({
 	                    error: 'Nâo foi possível enviar o token para esse email'
 	                });
 
 	                setTimeout(() => this.setState({ error: undefined }), 5000);
-	                formError.classList.remove('validade-error-user');
+	                formError.classList.remove('validade-error');
 	            }
 	        });
 	    }
@@ -183,7 +185,7 @@ class ForgotPassword extends React.Component {
 	};
 
 	addEfeitoDeErro = input => {
-	    input.classList.add('validade-error-user-user');
+	    input.classList.add('validade-error-user');
 
 	    input.style.border = '2px solid rgb(255,0,0)';
 
@@ -193,7 +195,7 @@ class ForgotPassword extends React.Component {
 
 	    input.addEventListener('animationend', event => {
 	        if (event.animationName === 'nonoUser') {
-	            input.classList.remove('validade-error-user-user');
+	            input.classList.remove('validade-error-user');
 	        }
 	    });
 	};
@@ -201,7 +203,7 @@ class ForgotPassword extends React.Component {
 	render() {
 	    return (
 	        <Container>
-	            <ContainerLogin className="login">
+	            <ContainerLogin className="loginContainer">
 	                <h1>Alterar senha</h1>
 
 	                {this.state.error ? <p>{this.state.error}</p> : null}
