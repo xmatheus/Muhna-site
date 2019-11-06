@@ -1,4 +1,4 @@
-## Projeto Digital do Museu de Histŕoia Natural do Araguaia
+## Projeto Digital do Museu de História Natural do Araguaia
 ### Universidade Federal Do Mato Grosso
 
 <p> <b>Orientador:</b> Ivairton Monteiro Santos </p>
@@ -46,7 +46,7 @@ $ serve -s build
 
 | váriavel | valor |
 | ------ | ------ |
-| REACT_APP_API_URL | ' ' |
+| REACT_APP_API_URL | {url da API} |
 
 
 ### Início rápido
@@ -55,14 +55,12 @@ $ serve -s build
  - Foi usado como base os cursos stater da [Rocketseat](https://rocketseat.com.br/), e também alguns vídeos de Reactjs que estão no [Canal Rocketseat](https://www.youtube.com/channel/UCSfwM5u0Kce6Cce8_S72olg).
  
  ### Estruturação de pastas
-É eu sei, não ficou muito bonito.
 
 
 
 ![treeFiles](https://user-images.githubusercontent.com/34286800/68258005-a587c480-000b-11ea-9140-50e99dd5b4bf.png)
 
 
-### vídeo
 
 [Video de exemplo](https://youtu.be/JsfZ0m9w86k)
 
