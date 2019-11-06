@@ -109,20 +109,21 @@ class ForgotPassword extends React.Component {
 
 	addEfeitoDeErroDiv = () => {
 	    const formLogin = document.querySelector('.loginContainer');
-
 	    formLogin.classList.add('validade-error');
 	    const formError = document.querySelector('.validade-error');
+
+	    this.setState({
+	        error: 'Nâo foi possível enviar o token para esse email'
+	    });
+
+	    setTimeout(() => this.setState({ error: undefined }), 5000);
+
 	    console.log('DE');
 	    if (formError) {
 	        console.log('bug');
 	        formError.addEventListener('animationend', event => {
 	            console.log('fim animation');
 	            if (event.animationName === 'nono') {
-	                this.setState({
-	                    error: 'Nâo foi possível enviar o token para esse email'
-	                });
-
-	                setTimeout(() => this.setState({ error: undefined }), 5000);
 	                formError.classList.remove('validade-error');
 	            }
 	        });

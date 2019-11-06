@@ -19,7 +19,7 @@ html {
 
 /* erro no login */
 .validade-error {
-	animation: nono 250ms linear, fade paused;
+	animation: nono 250ms linear;
 	animation-iteration-count: 2;
 }
 
