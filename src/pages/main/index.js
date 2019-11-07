@@ -108,7 +108,18 @@ class Main extends React.Component {
 	        .catch(error => {
 	            this.setState({ enviar: null });
 	            // document.querySelector('.main-form').style.cursor = 'default';
-	            this.addEfeitoDeErro();
+	            // this.addEfeitoDeErro();
+
+	            this.setState({ error: 'Email ou senha inválidos' });
+
+	            setTimeout(() => this.setState({ error: undefined }), 5000);
+
+	            this.setState({ incorrect: true });
+
+	            setTimeout(() => {
+	                this.setState({ incorrect: false });
+	            }, 3000);
+
 	            console.log(error);
 	        });
 	};
@@ -116,7 +127,11 @@ class Main extends React.Component {
 	render() {
 	    return (
 	        <Container>
-	            <ContainerLogin className="login">
+	            <ContainerLogin
+	                className={`input ${
+	                    this.state.incorrect ? 'login validade-error' : 'login'
+	                }`}
+	            >
 	                <h1>Login</h1>
 
 	                {this.state.error ? <p>{this.state.error}</p> : null}
