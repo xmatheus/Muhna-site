@@ -16,6 +16,15 @@ import '../../stylesRetangulo/styles.css';
 
 import NewsCreateChanged from './newsCreateChanged';
 
+import {
+    Container,
+    SubContainer,
+    ContainerUploadFiles,
+    BotaoVerde,
+    Loading,
+    PacmanLoad
+} from '../../StyledComponentsDashboard/styles';
+
 export default class NewsChange extends Component {
 	state = {
 	    onScreen: false,
@@ -144,13 +153,13 @@ export default class NewsChange extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="newsChange-main-News-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="newsChange-main-News">
+				    <Container className="newsChange-main-News">
 				        {!this.state.proxPag ? (
-				            <div className="newsChange-sub-div-news">
+				            <SubContainer className="newsChange-sub-div-news">
 				                <div id="inputOne">
 				                    <br />
 				                    <input
@@ -252,13 +261,13 @@ export default class NewsChange extends Component {
 												    )}
 												</div>
 												{!this.state.searchActive ? (
-												    <div>
+												    <PacmanLoad>
 												        <p>
 												            {page +
 																'/' +
 																pages.pages}
 												        </p>
-												    </div>
+												    </PacmanLoad>
 												) : null}
 												<div className="div-button-proxAndback">
 												    <button
@@ -293,14 +302,14 @@ export default class NewsChange extends Component {
 										)}
 									</>
 				                ) : (
-									<>
-										<Pacman
-										    color={'#3f2306'}
-										    loading={true}
-										/>
-									</>
+				                    <PacmanLoad>
+				                        <Pacman
+				                            color={'#3f2306'}
+				                            loading={true}
+				                        />
+				                    </PacmanLoad>
 				                )}
-				            </div>
+				            </SubContainer>
 				        ) : (
 				            <NewsCreateChanged
 				                title={this.state.title}
@@ -314,7 +323,7 @@ export default class NewsChange extends Component {
 				            />
 				        )}
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

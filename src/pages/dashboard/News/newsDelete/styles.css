@@ -1,45 +1,6 @@
-.newsChange-main-News-loading {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 80%;
-	height: 100vh;
-}
-
-.newsChange-main-News {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	height: 100vh;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	padding-top: 80px;
-	position: sticky;
-	overflow: hidden;
-	animation: fade 250ms linear;
-	min-height: 300px;
-}
-
 .div-vertical {
 	display: flex;
 	flex-direction: column;
-}
-
-.newsChange-sub-div-news {
-	display: flex;
-	flex-direction: column;
-	border: 2px solid rgba(3, 3, 3, 0.733);
-	border-radius: 10px;
-	width: 50%;
-	height: 90%;
-	padding: 20px;
-	overflow-y: auto;
-	position: sticky;
-	background-color: #ffffff;
-	justify-content: space-between;
-	align-items: center;
 }
 
 .div-title-deleteNews {
@@ -49,7 +10,7 @@
 	flex-direction: column;
 }
 
-.new-newsChange-sub-div-news-li li {
+.new-newsDelete-sub-div-news-li li {
 	display: flex;
 	/* align-items: flex-start; */
 	flex-direction: row;
@@ -66,7 +27,7 @@
 	align-items: center;
 }
 
-.newsChange-sub-div-news span {
+.newsDelete-sub-div-news span {
 	color: rgb(47, 46, 46);
 	font-size: 10px;
 	padding-top: 3px;
@@ -88,21 +49,21 @@
 	padding-top: 3px;
 }
 
-/* .new-newsChange-sub-div-news-li li:hover > .icons-horizontal span {
+/* .new-newsDelete-sub-div-news-li li:hover > .icons-horizontal span {
 	color: #ffff;
 }
-.new-newsChange-sub-div-news-li li:hover {
+.new-newsDelete-sub-div-news-li li:hover {
 	color: #ffff;
 	background-color: rgb(46, 25, 1);
 	cursor: pointer;
 } */
 
-.newsChange-sub-div-news h2 {
+.newsDelete-sub-div-news h2 {
 	text-align: center;
 	margin-bottom: 20px;
 }
 
-.newsChange-sub-div-news h4 {
+.newsDelete-sub-div-news h4 {
 	text-align: left;
 }
 
@@ -169,7 +130,7 @@ body {
 	animation-fill-mode: backwards;
 }
 
-.newsChange-sub-div-news p {
+.newsDelete-sub-div-news p {
 	background-color: rgb(75, 43, 7);
 	text-align: center;
 	border-radius: 6px;
@@ -178,7 +139,7 @@ body {
 	margin-bottom: 10px;
 }
 
-.newsChange-sub-div-news {
+.newsDelete-sub-div-news {
 	animation: fade 300 linear;
 }
 

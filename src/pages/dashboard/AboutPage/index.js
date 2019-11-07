@@ -7,6 +7,8 @@ import '../stylesRetangulo/styles.css';
 
 import { FaUserAstronaut, FaGithub, FaEnvelope } from 'react-icons/fa';
 
+import { ContainerAbout, ContainerVertical } from './styles';
+
 export default class AboutPage extends Component {
 	componentDidMount = () => {
 	    setTimeout(() => {
@@ -44,7 +46,7 @@ export default class AboutPage extends Component {
 
 	render() {
 	    return (
-	        <div className="about-div">
+	        <ContainerAbout>
 	            <div id="teste">
 	                <section>
 	                    <h1>Informações</h1>
@@ -63,19 +65,19 @@ export default class AboutPage extends Component {
 	                    <br />
 	                    <h4>Orientador:</h4>
 	                    <br />
-	                    <div className="about-vertical">
+	                    <ContainerVertical>
 	                        <FaUserAstronaut size={19} color="#006600" />
 
 	                        <p>Ivairton Monteiro Santos</p>
-	                    </div>
+	                    </ContainerVertical>
 
 	                    <br />
 
-	                    <div className="about-vertical">
+	                    <ContainerVertical>
 	                        <FaEnvelope size={19} color="#d10a0a" />
 
 	                        <p>ivairton@ufmt.br</p>
-	                    </div>
+	                    </ContainerVertical>
 
 	                    <br />
 
@@ -83,19 +85,19 @@ export default class AboutPage extends Component {
 
 	                    <br />
 
-	                    <div className="about-vertical">
+	                    <ContainerVertical>
 	                        <FaUserAstronaut size={19} color="#006600" />
 
 	                        <p>Matheus Felipe Teodoro Correia</p>
-	                    </div>
+	                    </ContainerVertical>
 
 	                    <br />
 
-	                    <div className="about-vertical">
+	                    <ContainerVertical>
 	                        <FaEnvelope size={19} color="#d10a0a" />
 
 	                        <p>matheuscorreia559@gmail.com</p>
-	                    </div>
+	                    </ContainerVertical>
 
 	                    <br />
 	                    <br />
@@ -110,7 +112,7 @@ export default class AboutPage extends Component {
 	            </div>
 
 	            <ul className="squares"></ul>
-	        </div>
+	        </ContainerAbout>
 	    );
 	}
 }

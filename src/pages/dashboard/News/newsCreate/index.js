@@ -20,6 +20,15 @@ import UploadFiles from '../uploadFiles';
 
 import LinkYtUpload from '../LinkYtUpload';
 
+import {
+    Container,
+    SubContainer,
+    ContainerUploadFiles,
+    BotaoVerde,
+    Loading,
+    PacmanLoad
+} from '../../StyledComponentsDashboard/styles';
+
 export default class NewsCreate extends Component {
 	state = {
 	    onScreen: false,
@@ -203,7 +212,7 @@ export default class NewsCreate extends Component {
 	};
 
 	changeEffect = () => {
-	    const formOne = document.querySelector('.sub-div-news');
+	    const formOne = document.querySelector('.sub-div-news-st');
 	    formOne.classList.add('class-rightToLeft');
 	    const formError = document.querySelector('.class-rightToLeft');
 	    if (formError) {
@@ -231,13 +240,13 @@ export default class NewsCreate extends Component {
 				    href="https://fonts.googleapis.com/icon?family=Material+Icons"
 				/>
 				{!this.state.onScreen ? (
-				    <div className="main-News-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="main-News">
+				    <Container className="main-News-st">
 				        {!this.state.proxPag ? (
-				            <div className="sub-div-news">
+				            <SubContainer className="sub-div-news-st">
 				                <form>
 				                    <label>Titulo</label>
 				                    <br></br>
@@ -268,14 +277,14 @@ export default class NewsCreate extends Component {
 				                    ></EditorText>
 				                </div>
 				                <div className="button-div">
-				                    <div id="pacmanLoad">
+				                    <PacmanLoad>
 				                        {this.state.enviar ? (
 				                            <Pacman
 				                                color={'#3f2306'}
 				                                loading={true}
 				                            />
 				                        ) : null}
-				                    </div>
+				                    </PacmanLoad>
 
 				                    <button
 				                        onClick={() => {
@@ -285,25 +294,25 @@ export default class NewsCreate extends Component {
 										próximo
 				                    </button>
 				                </div>
-				            </div>
+				            </SubContainer>
 				        ) : (
-				            <div className="proxPage-Newscreate">
+				            <ContainerUploadFiles className="proxPage-Newscreate">
 				                <h1>Adicionar mídia a notícia</h1>
 				                <UploadFiles
 				                    newsid={this.state.newsid}
 				                ></UploadFiles>
 				                <LinkYtUpload newsid={this.state.newsid} />
 
-				                <button
+				                <BotaoVerde
 				                    onClick={this.backPag}
 				                    id="proxPage-Newscreate"
 				                >
 									Finalizar
-				                </button>
-				            </div>
+				                </BotaoVerde>
+				            </ContainerUploadFiles>
 				        )}
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

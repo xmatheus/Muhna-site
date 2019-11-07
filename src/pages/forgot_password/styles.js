@@ -80,7 +80,7 @@ export const ContainerLogin = styled.div`
 
 		overflow: hidden;
 		text-align: center;
-		font-size: 0.8vw;
+		font-size: 1vh;
 		margin-top: 15px;
 
 		:hover {

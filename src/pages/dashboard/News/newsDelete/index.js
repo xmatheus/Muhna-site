@@ -18,6 +18,15 @@ import '../../stylesRetangulo/styles.css';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import {
+    Container,
+    SubContainer,
+    ContainerUploadFiles,
+    BotaoVerde,
+    Loading,
+    PacmanLoad
+} from '../../StyledComponentsDashboard/styles';
+
 export default class NewsDelete extends Component {
 	state = {
 	    onScreen: false,
@@ -290,12 +299,12 @@ export default class NewsDelete extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="newsChange-main-News-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="newsChange-main-News">
-				        <div className="newsChange-sub-div-news">
+				    <Container className="newsDelete-main-News">
+				        <SubContainer className="newsDelete-sub-div-news">
 				            <div id="inputOne">
 				                <br />
 				                <input
@@ -340,7 +349,7 @@ export default class NewsDelete extends Component {
 											) : null}
 
 											<div className="div-li-excludeNews">
-											    <div className="new-newsChange-sub-div-news-li">
+											    <div className="new-newsDelete-sub-div-news-li">
 											        <ReactCSSTransitionGroup
 											            transitionName="example"
 											            transitionEnterTimeout={
@@ -422,13 +431,13 @@ export default class NewsDelete extends Component {
 											    </div>
 											</div>
 											{!this.state.searchActive ? (
-											    <div>
+											    <PacmanLoad>
 											        <p>
 											            {page +
 															'/' +
 															pages.pages}
 											        </p>
-											    </div>
+											    </PacmanLoad>
 											) : null}
 											<div className="div-button-proxAndback">
 											    <button
@@ -454,13 +463,13 @@ export default class NewsDelete extends Component {
 									)}
 								</>
 				            ) : (
-								<>
-									<Pacman color={'#3f2306'} loading={true} />
-								</>
+				                <PacmanLoad>
+				                    <Pacman color={'#3f2306'} loading={true} />
+				                </PacmanLoad>
 				            )}
-				        </div>
+				        </SubContainer>
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );

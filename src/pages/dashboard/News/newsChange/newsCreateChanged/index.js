@@ -18,6 +18,14 @@ import { login, saveData } from '../../../../services/auth';
 import AllGallery from '../../../AllGallery';
 
 import LinkYtUpload from '../../LinkYtUpload';
+
+import {
+    Container,
+    SubContainer,
+    ContainerUploadFiles,
+    BotaoVerde,
+    Loading
+} from '../../../StyledComponentsDashboard/styles';
 export default class NewsCreateChanged extends Component {
 	state = {
 	    onScreen: false,
@@ -196,13 +204,13 @@ export default class NewsCreateChanged extends Component {
 	    return (
 			<>
 				{!this.state.onScreen ? (
-				    <div className="main-News-loading">
+				    <Loading>
 				        <Pacman color={'#3f2306'} loading={true} />
-				    </div>
+				    </Loading>
 				) : (
-				    <div className="main-News">
+				    <Container className="main-News">
 				        {!this.state.proxPag ? (
-				            <div className="sub-div-news">
+				            <SubContainer className="sub-div-news">
 				                <form>
 				                    <label>Titulo</label>
 				                    <br></br>
@@ -249,17 +257,17 @@ export default class NewsCreateChanged extends Component {
 										próximo
 				                    </button>
 				                </div>
-				            </div>
+				            </SubContainer>
 				        ) : (
 							<>
-								<div className="proxPage-NewsChange">
+								<ContainerUploadFiles className="proxPage-NewsChange">
 								    <h1>Adicionar mídia a notícia</h1>
 								    <UploadFiles
 								        newsid={this.props.newsid}
 								    ></UploadFiles>
 								    <LinkYtUpload newsid={this.props.newsid} />
 
-								    <button
+								    <BotaoVerde
 								        id="proxPage-NewsChange"
 								        onClick={() => {
 								            this.props.getNews(this.props.page);
@@ -269,12 +277,12 @@ export default class NewsCreateChanged extends Component {
 								        }}
 								    >
 										Finalizar
-								    </button>
-								</div>
+								    </BotaoVerde>
+								</ContainerUploadFiles>
 							</>
 				        )}
 				        <ul className="squares"></ul>
-				    </div>
+				    </Container>
 				)}
 			</>
 	    );
