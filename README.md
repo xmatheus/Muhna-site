@@ -23,8 +23,8 @@ Esse site foi desenvolvido para facilitar o controle de uma [API](https://github
 
 ### É necessário ter instalado
 páginas para o download
-* [Nodejs](https://nodejs.org/pt-br/download/package-manager/)
-* [Yarn](https://yarnpkg.com/pt-BR/docs/install#debian-stable)
+* [Nodejs >= 12.9.1](https://nodejs.org/pt-br/download/package-manager/)
+* [Yarn >= 1.19.1](https://yarnpkg.com/pt-BR/docs/install#debian-stable)
 * Git
 
 
