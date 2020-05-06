@@ -1,0 +1,6 @@
+{
+	"dsc": "este arquivo nao e necessario para esse repositorio, ele e apenas um 'backend' do meu portifolio",
+	"name": "Projeto digital do MuHNA",
+	"icon": "logo-react",
+	"resume": "Um sistema que eu desenvolvi para o museu de história natural do Araguaia(MuHNA), foi um projeto de extensão muito interessante, nele foi feito uma api(node), site(react) e aplicativo android(react-native)"
+}
