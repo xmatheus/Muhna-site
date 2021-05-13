@@ -13,7 +13,7 @@
 		"filesize": "^4.2.1",
 		"install": "^0.13.0",
 		"loaders.css": "^0.1.2",
-		"lodash": "^4.17.19",
+		"lodash": "^4.17.21",
 		"npm": "^6.14.6",
 		"prettier": "^1.18.2",
 		"qrcode.react": "^0.9.3",
